@@ -523,3 +523,51 @@ body {
 }
 
 /* End */
+
+
+/* CSS for Chat History */
+.chat-content {
+  display: flex;
+  height:100%;
+  width: 100%;
+}
+
+.chat-content .accordion {
+  height: 100%;
+  width: 25%;
+  min-width: 15em;
+  background-color: #fcf4f4;
+  border-top: 1px solid black;
+  border-right: none;
+  margin: -1px;
+}
+
+.chat-item{
+  background-color: white;
+  padding:1rem;
+}
+.chat-item:last-child {
+  border-bottom: none;
+}
+.chat-header {
+  background: #fcf4f4;
+  border-bottom: 1px solid black;
+  color: black;
+  padding: 0.8em;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.chat-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+}
+.chat-content .chat-item:last-child {
+  border: none;
+}
+
+/* End */
