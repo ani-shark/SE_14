@@ -242,17 +242,22 @@ body {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 2rem 1rem 0rem 1rem;
+  margin: 1rem;
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
 }
 .flash-cards-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   gap: 1.5em;
   margin-top: 2em;
   margin-bottom: 2em;
+ 
 }
 .card {
   border: 1px solid #ddd;
