@@ -2,28 +2,41 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 body {
-  height: 100%;
+  height: 100vh;
+  max-height: fit-content;
 }
+
+.dark-mode {
+  background-color: #222;
+  color: white;
+}
+
+/* CSS for Navbar */
+
 .seek-navbar {
   background-color: #fcf4f4;
-  padding: 10px 0px;
+  padding: 0.7em 1em 0.7em 0em;
+  max-width: 100%;
   border-bottom: 1px solid black;
-}
-.course-detail {
   display: flex;
   align-items: center;
-  gap: 10px;
-  max-width: 200px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  justify-content: space-between;
+}
+.course-detail {
+  width:60%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8em;
 }
 .course-detail img {
-  width: 60px;
-  height: auto;
+  width: 3.5em;
+  height: 2em;
 }
+
 .navigation button {
   padding: 8px 12px;
   font-size: 1rem;
@@ -34,25 +47,74 @@ body {
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
 }
-.navigation button:hover {
-  transform: scale(1.05);
+
+.seek-navbar button {
+  padding: 0.4em 0.8em;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 2px solid #6d241f;
+  color: #6d241f;
+  border-radius: 8px;
+  background-color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
 }
-.navigation button a,
-.navigation button i {
-  text-decoration: none;
+
+.seek-navbar button:hover {
+  color: white;
+  background-color: #6d241f;
+  border: 1px solid white;
+}
+.seek-navbar button:hover a {
+  color: white;
+  background-color: #6d241f;
+}
+
+.seek-navbar button a {
   color: #6d241f;
 }
 
+.seek-navbar button:first-of-type:hover {
+  color: white;
+  background-color: #6d241f;
+}
+/* End */
+
+/* Dark Mode for Navbar */
+.dark-mode .seek-navbar button:first-of-type {
+  background-color: black;
+  color: white;
+  border: 2px solid white;
+}
+.dark-mode .seek-navbar button:first-of-type a i {
+  background-color: transparent;
+  color: white;
+}
+.dark-mode .seek-navbar button:first-of-type:hover {
+  color: white;
+  background-color: #6d241f;
+}
+
+/* End */
+
+
+/* CSS for Seek Portal */
+
+.course-content {
+  display: flex;
+  height: 100%;
+  min-height: 100vh;
+  width: 100%;
+}
 .accordion {
   height: 100%;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  width: 25%;
+  min-width: 15em;
   background-color: #fcf4f4;
   border-right: 1px solid black;
   border-top: 1px solid black;
   margin: -1px;
 }
-
 .accordion-item:last-child {
   border-bottom: none;
 }
@@ -60,7 +122,7 @@ body {
   background: #fcf4f4;
   border-bottom: 1px solid black;
   color: black;
-  padding: 15px;
+  padding: 0.8em;
   cursor: pointer;
   font-weight: bold;
   display: flex;
@@ -68,142 +130,205 @@ body {
 }
 .accordion-content {
   display: none;
-  padding: 15px;
+  padding: 0.5em;
   background: #fff;
   color: #333;
+  border-bottom: 1px solid black;
 }
 .active + .accordion-content {
   display: block;
 }
-.course-content {
-  display: flex;
-  height: 100%;
-  width: 100%;
-}
-.content {
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-}
-.lecture-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-.lecture-video {
-  width: 100%;
-  background-color: #f0f0f0;
-}
-.content-item{
+.content-item {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  border-bottom: 1px solid black;
+}
+.accordion-content .content-item:last-child {
+  border: none;
 }
 
 .ai-agent-button {
-    position: fixed;
-    bottom: 20px; 
-    left: 20px; 
-    background-color: white;  
-    padding: 10px 20px;
-    border: 2px solid #6d241f;
-    color: #6d241f;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 25px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  background-color: white;
+  padding: 0.6rem 1.2rem;
+  border: 2px solid #6d241f;
+  color: #6d241f;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .ai-agent-button:hover {
-    color: white;
-    background-color:#6d241f;
-}
-
-.flash-cards-container {
-  justify-content: center;
-  align-items: center; 
-  min-height: 70vh;
-}
-
-html, body {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.container-fluid {
-  flex: 1;
-}
-
-.footer {
-  background-color: #A0332D;
   color: white;
-  text-align: center;
-  padding: 10px;
-  width: 100%;
+  background-color: #6d241f;
+  transform: scale(1.1);
 }
 
-.card-head {
-  background-color: #A0332D; /* Different background color for header */
-  color: white; /* White text */
-  text-align: center; /* Centered text */
-  padding: 15px; /* Padding for better spacing */
+.theme-btn {
+  padding: 8px 12px;
+  font-size: 1rem;
   font-weight: bold;
-  border-top-left-radius: 8px; /* Rounded corners for consistency */
-  border-top-right-radius: 8px;
-}
-.card-body {
-  background-color: #F5F5F5; /* Different background color for the body */
-  color: black;
-  padding: 15px;
-}
-
-.card-link {
-  text-decoration: none; /* Remove underline from the link */
-  color: inherit; /* Inherit text color */
-  display: block; /* Make the entire card clickable */
-}
-
-.card {
-  transition: transform 0.2s ease-in-out; /* Add hover effect */
-}
-
-.card:hover {
-  transform: scale(1.10); /* Slight zoom effect on hover */
+  border: 2px solid #6d241f;
+  border-radius: 8px;
+  background-color: white;
   cursor: pointer;
+  transition: transform 0.2s ease-in-out;
 }
 
+/* End */
 
-
-
-/* Dark Mode Styles */
-.dark-mode {
-  background-color: #121212; /* Dark background */
-  color: white;
-}
-
-.dark-mode .card {
-  background-color: #1e1e1e;
-  color: white;
-}
-
-.dark-mode .card-body {
-  background-color: #2c2c2c;
-}
-
-.dark-mode .card-body a {
-  color: white;
-  border-color: white;
-}
-
+/* Dark Mode CSS for Seek Portal */
 .dark-mode .seek-navbar {
   background-color: #333;
   border-bottom: 1px solid #555;
 }
 
-.dark-mode .footer {
-  background-color: #222;
+.dark-mode .accordion {
+  background-color: #333;
+  border-bottom: 1px solid #555;
+  margin: -1px;
 }
+
+.dark-mode .accordion-item {
+  border: 1px solid white;
+}
+
+.dark-mode .accordion-item .accordion-content {
+  background-color: #333;
+  border: 1px solid white;
+}
+.dark-mode .accordion-item .content-item {
+  background-color: #333;
+  color: white;
+  border-bottom: 1px solid white;
+}
+
+.dark-mode .accordion-content .content-item:last-child {
+  border: none;
+}
+.dark-mode .accordion-header {
+  background-color: #333;
+  border-bottom: 1px solid white;
+  color: white;
+}
+
+.dark-mode .ai-agent-button {
+  background-color: black;
+  color: white;
+  border: 2px solid white;
+}
+
+.dark-mode .ai-agent-button:hover {
+  transform: scale(1.1);
+  color: white;
+  border: 2px solid white;
+  background-color: #6d241f;
+}
+/* End */
+
+
+/* CSS for My Courses Page */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.meta-info {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 2rem 1rem 0rem 1rem;
+}
+.flash-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5em;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+.card {
+  border: 1px solid #ddd;
+  width: 20rem;
+  border-radius: 8px;
+  text-align: center;
+  background-color: white;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.course-info {
+  background-color: #6d241f;
+  padding: 0.5em 0.5em;
+  color: white;
+}
+
+.course-info h4 {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+.card ul {
+  list-style-type: none;
+  padding: 0;
+}
+.card ul li {
+  margin: 0.5em 0;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 8px 12px;
+  background-color: white;
+  color: black;
+  text-decoration: none;
+  border-radius: 0;
+
+}
+.footer {
+  text-align: center;
+  padding: 15px;
+  background-color: #6d241f;
+  color: white;
+  margin-top: 20px;
+}
+
+/* End */
+
+
+/* Dark Mode CSS for My Courses Page*/
+.dark-mode {
+  background-color: #121212; /* Dark background */
+  color: white;
+}
+
+.dark-mode {
+  color: white;
+  border-color: white;
+}
+
+.dark-mode footer {
+  background-color: #333;
+  color: white;
+}
+
+.dark-mode .card a {
+  background-color: #333;
+  color: white;
+}
+
+.dark-mode .card .btn-primary {
+  border-top: 1px solid white;
+}
+/* End */
+
+
 
 /* Theme Toggle Button */
 .theme-btn {
@@ -216,13 +341,190 @@ html, body {
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
 }
-
-.theme-btn:hover {
-  transform: scale(1.05);
-}
-
 .dark-mode .theme-btn {
   background-color: black;
   color: white;
   border: 2px solid white;
 }
+
+/* End */
+
+
+/* CSS for Sign In page */
+
+.sign-in-body {
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sign-in-header {
+  height: 15%;
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.sign-in-header img {
+  height: 60%;
+}
+
+.sign-in-form-box {
+  height: fit-content;
+  min-height: 100%;
+  background: linear-gradient(to bottom, #a2362c, #c87f30);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.sign-in {
+  background: white;
+
+  padding: 2rem;
+  margin: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 25rem;
+  min-width: 15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.sign-in h1 {
+  margin-bottom: 1rem;
+}
+
+.sign-in button {
+  background: #a2362c;
+  border: 1px solid white;
+  color: white;
+  padding: 0.7rem;
+  border-radius: 4px;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.sign-in button:hover {
+  background: white;
+  border: 1px solid #a2362c;
+  color: #a2362c;
+}
+
+.sign-in-footer {
+  height: 15%;
+  background-color: white;
+  color: #343a40;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* End */
+
+
+
+/* CSS for Registeration Page */
+.register-body {
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.register-header {
+  height: 15%;
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.register-header img {
+  height: 60%;
+}
+
+.register-form-box {
+  height: fit-content;
+  min-height: 100%;
+  background: linear-gradient(to bottom, #a2362c, #c87f30);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.register {
+  background: white;
+  padding: 2rem;
+  margin: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 25rem;
+  min-width: 15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.register input,
+.register select {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.register button {
+  background: #a2362c;
+  border: 1px solid white;
+  color: white;
+  padding: 0.7rem;
+  border-radius: 4px;
+  cursor: pointer;
+  width: fit-content;
+}
+.register button:hover {
+  background: white;
+  border: 1px solid #a2362c;
+  color: #a2362c;
+}
+.register button:first-of-type {
+  margin-top: 0;
+  margin-bottom: 1em;
+  padding:0.4rem;
+  border-radius: 0.7em;
+}
+
+.selected-course {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: lightslategray;
+  color: white;
+  padding: 0.5rem 0.5rem;
+  border-radius: 1.3em;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5em;
+  width: 100%;
+}
+
+.selected-course a {
+  background-color: none;
+  color: white;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding-right: 0.6em;
+}
+.selected-course a:hover {
+  transform: scale(1.1);
+}
+
+/* End */
