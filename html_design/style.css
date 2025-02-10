@@ -379,18 +379,17 @@ body {
 
 .sign-in-form-box {
   height: fit-content;
-  min-height: 100%;
+  min-height: 100vh;
   background: linear-gradient(to bottom, #a2362c, #c87f30);
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .sign-in {
   background: white;
-
   padding: 2rem;
-  margin: 2rem;
+  margin: 1rem;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 25rem;
@@ -421,14 +420,7 @@ body {
   color: #a2362c;
 }
 
-.sign-in-footer {
-  height: 15%;
-  background-color: white;
-  color: #343a40;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 
 /* End */
 
@@ -456,8 +448,6 @@ body {
 }
 
 .register-form-box {
-  height: fit-content;
-  min-height: 100%;
   background: linear-gradient(to bottom, #a2362c, #c87f30);
   display: flex;
   justify-content: center;
