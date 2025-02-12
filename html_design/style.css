@@ -874,3 +874,147 @@ body {
   background: #6d241f;
 }
 /* End */
+
+
+
+/* CSS for Admin Page */
+
+
+.admin-form-box {
+  background: white;
+  display: flex;
+  height: 100%;
+  min-height: fit-content;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.admin {
+  background: whitesmoke;
+  padding: 2rem;
+  margin: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+  width: 25rem;
+  min-width: 15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+
+
+.admin h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.admin-form-box form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.admin-form-box label {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.admin-form-box input{
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  
+}
+
+.admin-form-box input:focus {
+  border-color: #6d241f;
+  outline: none;
+}
+
+.admin-form-box button {
+  background-color: #6d241f;
+  color: white;
+  border: 1px solid white;
+  border-radius: 4px;
+  width: fit-content;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 0.5rem 0.5rem;
+}
+
+.admin-form-box button:hover {
+  background-color: white;
+  color: #6d241f;
+  border: 1px solid #6d241f;
+}
+
+.admin-form-box input[list]::-webkit-calendar-picker-indicator {
+  display: none !important;
+}
+
+.admin-form-box datalist {
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.admin-form-box datalist option {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.admin-form-box datalist option:hover {
+  background: #007bff;
+  color: white;
+}
+
+
+/* End */
+
+
+/* Dark Mode for Admin Page */
+
+
+.dark-mode .admin-form-box {
+  background: #202020;
+}
+
+.dark-mode .admin {
+  background:#333;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+}
+
+
+
+.dark-mode .admin h2 {
+  color: White;
+}
+
+
+.dark-mode .admin-form-box input{
+  border: 1px solid #202020;
+ 
+}
+
+
+.dark-mode .admin-form-box button {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+}
+
+.dark-mode .admin-form-box button:hover {
+  background-color: #6d241f;
+}
+
+
+/* End */
