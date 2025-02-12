@@ -6,9 +6,7 @@
 }
 
 body {
-  height: 90vh;
-
-  max-height: fit-content;
+  height: 100vh;
 }
 
 .dark-mode {
@@ -54,7 +52,6 @@ body {
   height: 2em;
 }
 
-.navigation button,
 .seek-navbar button {
   padding: 8px 12px;
   font-size: 1rem;
@@ -66,28 +63,17 @@ body {
   transition: transform 0.2s ease-in-out;
 }
 
-.seek-navbar button {
-  padding: 0.4em 0.8em;
+.seek-navbar button a{
   color: #6d241f;
 }
 
-.seek-navbar button:hover {
-  background: #6d241f;
-  color: white;
-  border: 1px solid white;
+.seek-navbar button:hover{
+  transform: scale(1.04);
+  background-color: #6d241f;
+  border: 2px solid white;
 }
 
-.seek-navbar button a {
-  color: #6d241f;
-}
-
-.seek-navbar button:hover a {
-  color: white;
-  background: #6d241f;
-}
-
-.seek-navbar button:first-of-type:hover {
-  background: #6d241f;
+.seek-navbar button:hover a{
   color: white;
 }
 
@@ -99,24 +85,21 @@ body {
 
 .dark-mode .seek-navbar {
   background: #333;
-  border-bottom: 1px solid white;
-  border-right:none ;
+  border-bottom:1px solid white ;
   
 }
 
-.dark-mode .seek-navbar button:first-of-type {
+.dark-mode .seek-navbar button{
   background: black;
   color: white;
   border: 2px solid white;
 }
 
-.dark-mode .seek-navbar button:first-of-type a i {
-  background: transparent;
-  color: white;
+.dark-mode .seek-navbar button:hover{
+  background: #6d241f;
 }
 
-.dark-mode .seek-navbar button:first-of-type:hover {
-  background: #6d241f;
+.dark-mode .seek-navbar button a {
   color: white;
 }
 
@@ -213,6 +196,9 @@ body {
 
 /* Dark Mode CSS for Seek Portal */
 
+.dark-mode .course-content{
+  border:none
+}
 .dark-mode .accordion {
   height: 100%;
   width: 25%;
@@ -221,10 +207,13 @@ body {
   
 }
 
+.dark-mode .accordion-item{
+  border:none;
+}
+
 .dark-mode .accordion-header {
   background: #333;
   border-bottom: 1px solid white;
-
   color: white;
   padding: 0.8em;
   cursor: pointer;
@@ -236,25 +225,13 @@ body {
 .dark-mode .accordion-content {
   display: none;
   padding: 0.5em;
-  background: #333;
+  background: black;
   color: whitesmoke;
-  border-bottom: 1px solid white;
   
 }
 
-.active + .accordion-content {
-  display: block;
-}
-
-.dark-mode .accordion-item{
-  border-right: none;
-  border-left: none;
-}
-
 .dark-mode .content-item {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid white; 
 }
 
 .dark-mode .ai-agent-button {
@@ -290,13 +267,13 @@ body {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 2rem 1rem 0rem 1rem;
   margin: 1rem;
   width: 90%;
   max-width: 1200px;
-  margin: auto;
 }
+
 .flash-cards-container {
   display: flex;
   flex-wrap: wrap;
@@ -615,12 +592,13 @@ body {
 .chat-area {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 84%;
   width:100%;
-  border: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc ;
   border-radius: 0 0 10px 10px;
   overflow: hidden;
-  margin: -1px;
+  
 }
 
 .chat-box {
@@ -634,7 +612,7 @@ body {
   display: flex;
   padding: 10px;
   background: #fff;
-  border-top: 1px solid #ccc;
+  border-top: 3px solid #ccc;
 }
 
 .chat-input input {
@@ -686,7 +664,7 @@ body {
 
 
 .message.bot {
-  background: #e0e0e0;
+  background: lightgreen;
   color: black;
   align-self: flex-start;
   text-align: left;
@@ -703,12 +681,12 @@ body {
 
 .dark-mode .chat-content .accordion {
   background-color: #333;
-  border-right: 1px solid white;
+  border-right: none;
   margin: -1px;
 }
 
-.dark-mode .chat-content .chat-item {
-  background-color: #333;
+.dark-mode .chat-item {
+  background-color: black;
   color: white;
   border-bottom: 1px solid white;
 }
@@ -722,6 +700,7 @@ body {
 
 .dark-mode .chat-box {
   background: #333;
+
 }
 
 .dark-mode .chat-input {
@@ -729,22 +708,169 @@ body {
 }
 
 .dark-mode .chat-input input {
-  border: 1px solid white;
   background-color: #333;
   color: white;
 }
 
 .dark-mode .chat-input button {
-  background: #9e453f;
+  background: black;
   color: white;
-  border: none;
+  border: 1px solid white;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.dark-mode .chat-input button:hover{
+  background-color: #6d241f;
 }
 
 .dark-mode .message.user {
   background: rgb(82, 82, 82);
   color: white;
 }
+
+.dark-mode .message.bot{
+  background-color: #e0e0e0;
+}
 /* End */
 
+
+/* CSS for Assignment Area */
+.content{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  padding: 1.5rem 1rem;
+}
+
+/* End */
+
+
+/* CSS for Programming Assignment */
+
+.programming-assignment{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 100%;
+}
+
+.programming-assignment h1{
+  margin-bottom: 0;
+  font-weight: bold;
+}
+.programming-assignment>p{
+  margin-bottom: 0;
+  font-style: italic;
+  color:rgb(80, 79, 79);
+}
+
+.programming-assignment .programming-question{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.programming-assignment .format-details{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 2rem; 
+  text-align: center;
+}
+
+.programming-assignment .submit-code{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.custom-file-upload input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #6d241f;
+  color: white;
+  height: fit-content;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 2px solid #6d241f;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.custom-file-upload:hover {
+  background: white;
+  color: #6d241f;
+}
+
+.programming-assignment .test-results{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+
+.test-results span{
+  color: green;
+}
+
+.programming-assignment .programming-assignment-btns{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.programming-assignment-btns .get-help-btn{
+  background: green;
+  color: white;
+  height: fit-content;
+  padding: 0.5rem 1rem;
+  border: 2px solid white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.programming-assignment-btns .get-help-btn:hover{
+  background: white;
+  color: green;
+  border:2px solid green;
+}
+
+/* End */
+
+
+/* Dark Mode for Programming Assignment */
+
+.dark-mode .custom-file-upload {
+  background: black;
+  color: white;
+  border: 2px solid white;
+}
+
+.dark-mode .custom-file-upload:hover {
+  background: #6d241f;
+}
+/* End */
