@@ -120,6 +120,7 @@ body {
   width: 25%;
   background: #fcf4f4;
   border:none;
+  border-right: 1px solid rgb(204, 204, 204);;
   
 }
 
@@ -555,9 +556,7 @@ body {
   width: 25%;
   min-width: 15em;
   background-color: #fcf4f4;
-  border-top: 1px solid black;
-  border-right: none;
-  margin: -1px;
+  border-right: 1px solid rgb(204, 204, 204);
 }
 
 .chat-item{
@@ -592,11 +591,13 @@ body {
 .chat-area {
   display: flex;
   flex-direction: column;
-  height: 84%;
+  height: 86%;
   width:100%;
-  border-left: 1px solid #ccc;
+  border: 1px solid #ccc;
+  border-top: none;
   border-bottom: 1px solid #ccc ;
   border-radius: 0 0 10px 10px;
+  
   overflow: hidden;
   
 }
@@ -685,6 +686,7 @@ body {
   margin: -1px;
 }
 
+
 .dark-mode .chat-item {
   background-color: black;
   color: white;
@@ -700,7 +702,7 @@ body {
 
 .dark-mode .chat-box {
   background: #333;
-
+  background-color: #222222;
 }
 
 .dark-mode .chat-input {
@@ -1016,5 +1018,66 @@ body {
   background-color: #6d241f;
 }
 
+
+/* End */
+
+
+
+/* CSS for Responsive Accordion */
+
+.accordion.open {
+  left: 0;
+}
+
+.accordion-close {
+  display: none;
+  position: absolute;
+  right: 0.5rem;
+  top: 0.8rem;
+  background-color: #6d241f;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 1px 6px;
+}
+
+.accordion-close:hover{
+  transform: scale(1.04);
+}
+.accordion-toggle {
+  display: none;
+  position: fixed;
+  top: 3rem;
+  background: #6d241f;
+  color: white;
+  padding: 10px;
+  border: 2px solid white;
+  border-left: none;
+  border-radius: 0 20px 20px 0;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.accordion-toggle:hover {
+  border: 2px solid #6d241f;
+  border-left: none;
+  background-color: white;
+  color: #6d241f;
+}
+
+.dark-mode .accordion-toggle {
+  background-color: black;
+}
+
+.dark-mode .accordion-toggle:hover {
+  color: black;
+  background-color: white;
+  border: 2px solid white;
+}
+
+.dark-mode .accordion-close {
+  background-color: black;
+
+}
 
 /* End */
