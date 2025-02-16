@@ -120,8 +120,10 @@ body {
   width: 25%;
   background: #fcf4f4;
   border:none;
-  border-right: 1px solid rgb(204, 204, 204);;
-  
+  border-right: 1px solid rgb(204, 204, 204);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width:none;  
 }
 
 .accordion-item:last-child {
@@ -151,6 +153,11 @@ body {
   background: #fff;
   color: #333;
   border-bottom: 1px solid black;
+  height:10.3rem;
+  max-height: min-content;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width:thin;  
 }
 
 .active + .accordion-content {
@@ -268,11 +275,8 @@ body {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: space-around;
-  padding: 2rem 1rem 0rem 1rem;
-  margin: 1rem;
-  width: 90%;
-  max-width: 1200px;
+  justify-content: space-between;
+  margin-top: 2rem;
 }
 
 .flash-cards-container {
@@ -291,7 +295,7 @@ body {
   border-radius: 8px;
   text-align: center;
   background-color: white;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
 }
 
 .card:hover {
@@ -344,6 +348,10 @@ body {
 .dark-mode footer {
   background-color: #333;
   color: white;
+}
+
+.dark-mode .card{
+  box-shadow: none;
 }
 
 .dark-mode .card a {
@@ -492,6 +500,10 @@ body {
   border-radius: 4px;
   border: 1px solid #ccc;
 }
+
+.register select{
+  scrollbar-width: thin;
+}
 .register button {
   background: #a2362c;
   border: 1px solid white;
@@ -557,6 +569,9 @@ body {
   min-width: 15em;
   background-color: #fcf4f4;
   border-right: 1px solid rgb(204, 204, 204);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width:none;
 }
 
 .chat-item{
@@ -597,35 +612,41 @@ body {
   border-top: none;
   border-bottom: 1px solid #ccc ;
   border-radius: 0 0 10px 10px;
-  
-  overflow: hidden;
+
   
 }
 
 .chat-box {
   flex-grow: 1;
   overflow-y: auto;
+  scrollbar-width: thin;
   padding: 1em;
   background: #f9f9f9;
 }
 
 .chat-input {
   display: flex;
+  align-items: center;
   padding: 10px;
   background: #fff;
   border-top: 3px solid #ccc;
 }
 
-.chat-input input {
+.chat-input textarea {
   flex-grow: 1;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  resize: none;
+  height: 5rem;
+  max-height: 10rem;
+  scrollbar-width: thin; 
 }
 
 .chat-input button {
   margin-left: 10px;
   padding: 8px 12px;
+  max-height: fit-content;
   background: #6d241f;
   color: white;
   border: none;
@@ -649,7 +670,7 @@ body {
   margin: 5px 0;
   padding: 10px;
   border-radius: 10px;
-  max-width: 70%;
+  max-width: 90%;
   margin-bottom: 0.8rem;
 }
 
@@ -709,7 +730,7 @@ body {
   background-color: #202020;
 }
 
-.dark-mode .chat-input input {
+.dark-mode .chat-input textarea {
   background-color: #333;
   color: white;
 }

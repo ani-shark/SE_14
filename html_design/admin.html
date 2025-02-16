@@ -64,28 +64,13 @@
       <b>SE Project | JAN 2025 Term</b>
     </footer>
 
+    <script src="script.js"></script>
     <script>
       function updateMinDate() {
         let startDate = document.getElementById("start-date").value;
         document.getElementById("end-date").min = startDate;
       }
-      document.addEventListener("DOMContentLoaded", function () {
-        const toggleButton = document.getElementById("theme-toggle");
-        const body = document.body;
-
-        if (localStorage.getItem("theme") === "dark") {
-          body.classList.add("dark-mode");
-          toggleButton.textContent = "☀️";
-        } else {
-          toggleButton.textContent = "🌙";
-        }
-
-        toggleButton.addEventListener("click", function () {
-          body.classList.toggle("dark-mode");
-          localStorage.setItem("theme", body.classList.contains("dark-mode") ? "dark" : "light");
-          toggleButton.textContent = body.classList.contains("dark-mode") ? "☀️" : "🌙";
-        });
-      });
+  
 
       document.getElementById("downloadReportForm").addEventListener("submit", function (event) {
         event.preventDefault();

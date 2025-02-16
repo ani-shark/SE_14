@@ -36,7 +36,7 @@
       </div>
     </nav>
 
-    <div class="meta-info">
+    <div class="container meta-info">
       <div>
         <h3>My Current Courses</h3>
         <p>
@@ -116,33 +116,7 @@
       </div>
     </div>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const toggleButton = document.getElementById("theme-toggle");
-        const body = document.body;
-
-        // Load saved theme preference
-        if (localStorage.getItem("theme") === "dark") {
-          body.classList.add("dark-mode");
-          toggleButton.textContent = "☀️";
-        } else {
-          toggleButton.textContent = "🌙";
-        }
-
-        toggleButton.addEventListener("click", function () {
-          body.classList.toggle("dark-mode");
-
-          // Save theme preference in localStorage
-          if (body.classList.contains("dark-mode")) {
-            localStorage.setItem("theme", "dark");
-            toggleButton.textContent = "☀️";
-          } else {
-            localStorage.setItem("theme", "light");
-            toggleButton.textContent = "🌙";
-          }
-        });
-      });
-    </script>
+    <script src="script.js"></script>
 
     <footer class="footer">
       <b>SE Project | JAN 2025 Term</b>

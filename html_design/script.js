@@ -1,11 +1,5 @@
-document
-.querySelectorAll('input[name="main-content"]')
-.forEach((radio) => {
-  radio.addEventListener("change", function () {
-    document.getElementById("selectedLecture").textContent = this.value;
-  });
-});
 
+//  Dark Mode Script
 document.addEventListener("DOMContentLoaded", function () {
 const toggleButton = document.getElementById("theme-toggle");
 const body = document.body;
@@ -34,11 +28,16 @@ toggleButton.addEventListener("click", function () {
   }
 });
 });
+
+// End
+
+
+// Sidebar Responsiveness Script
 function adjustSidebar() {
 const sidebar = document.getElementById("accordion");
 const toggleButton = document.getElementById("accordion-toggle");
 
-if (window.innerWidth <= 768) {
+if (window.innerWidth <= 968) {
   sidebar.style.left = "0";
   sidebar.style.width = "250px";
   sidebar.style.height = "100%";
@@ -63,7 +62,7 @@ const toggleButton = document.getElementById("accordion-toggle");
 const closeButton = document.getElementById("close-accordion");
 
 function handleSidebarDisplay() {
-  if (window.innerWidth <= 768) {
+  if (window.innerWidth <= 968) {
     accordion.style.display = "none";
     toggleButton.style.display = "block";
     closeButton.style.display = "block";
@@ -86,10 +85,13 @@ toggleButton.addEventListener("click", function () {
 
 closeButton.addEventListener("click", function () {
   accordion.style.display = "none";
-  toggleButton.style.display = "block"; // Show toggle button
+  toggleButton.style.display = "block"; 
 });
 });
 
+// End
+
+// Accordion content expansion
 document.querySelectorAll(".accordion-header").forEach((item) => {
     item.addEventListener("click", function () {
       this.classList.toggle("active");
@@ -98,3 +100,4 @@ document.querySelectorAll(".accordion-header").forEach((item) => {
         content.style.display === "block" ? "none" : "block";
     });
   });
+
