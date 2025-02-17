@@ -32,7 +32,11 @@
             ><i class="fa fa-sign-out" aria-hidden="true"></i
           ></a>
         </button>
-        <button title="Change Theme" id="theme-toggle" class="theme-btn"></button>
+        <button
+          title="Change Theme"
+          id="theme-toggle"
+          class="theme-btn"
+        ></button>
       </div>
     </nav>
 
@@ -117,6 +121,36 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const toggleButton = document.getElementById("theme-toggle");
+        const body = document.body;
+
+        if (localStorage.getItem("theme") === "dark") {
+          body.classList.add("dark-mode");
+          toggleButton.textContent = "☀️";
+        } else {
+          toggleButton.textContent = "🌙";
+        }
+
+        toggleButton.addEventListener("click", function () {
+          body.classList.toggle("dark-mode");
+          localStorage.setItem(
+            "theme",
+            body.classList.contains("dark-mode") ? "dark" : "light"
+          );
+          toggleButton.textContent = body.classList.contains("dark-mode")
+            ? "☀️"
+            : "🌙";
+          const sidebar = document.getElementById("accordion");
+          if (localStorage.getItem("theme") === "dark") {
+            sidebar.style.background = "#333";
+          } else {
+            sidebar.style.background = "#f8f9fa";
+          }
+        });
+      });
+    </script>
 
     <footer class="footer">
       <b>SE Project | JAN 2025 Term</b>

@@ -1,1 +1,4 @@
 __pycache__
+
+# Node modules in the 'frontend' folder
+frontend/node_modules/
