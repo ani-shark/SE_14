@@ -1,6 +1,6 @@
 <template>
     <div class="programming-assignment">
-        <h4>Programming Assignment</h4>
+        <h4>{{ details ? details.name : 'No content available' }}</h4>
         <p>This is for practice only</p>
         <p>Deadline: <span style="color: red;">DD-MM-YYYY</span></p>
         <div class="programming-question">
@@ -51,20 +51,20 @@
 
 <script>
 export default {
-    name: 'ProgAssignment',
+    props:{details:{
+        type:String,
+        required:true
+    }},
     data() {
         return {
-            // Add your component data here
+            
         };
     },
     methods: {
-        // Add your component methods here
+       
     },
     computed: {
-        // Add your computed properties here
-    },
-    mounted() {
-        // Lifecycle hook when the component is mounted
+       
     }
 };
 </script>

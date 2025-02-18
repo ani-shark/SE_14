@@ -883,7 +883,7 @@ body {
 }
 
 .programming-assignment-btns .get-help-btn{
-  background: green;
+  background: #28a745;
   color: white;
   height: fit-content;
   padding: 0.5rem 1rem;
@@ -895,8 +895,8 @@ body {
 
 .programming-assignment-btns .get-help-btn:hover{
   background: white;
-  color: green;
-  border:2px solid green;
+  color: #28a745;
+  border:2px solid #28a745;
 }
 
 /* End */
@@ -1116,6 +1116,108 @@ body {
 .dark-mode .accordion-close {
   background-color: black;
 
+}
+
+/* End */
+
+
+
+/* CSS for Video Seek */
+.video-pane {
+  width: 65%;
+  aspect-ratio: 16/9;
+  background: #000;
+}
+.video-pane video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.get-help-btn-video {
+  background-color: #28a745;
+  color: white;
+  border: 1px solid #28a745;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+.get-help-btn-video:hover {
+  background-color: white;
+  color: #28a745;
+}
+
+/* End */
+
+
+
+/* CSS for Assignment Seek */
+
+.get-help-btn-assign {
+  background-color: #28a745;
+  color: white;
+  border: 2px solid white;
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  height: fit-content;
+  align-self: flex-end;
+  min-width: fit-content;
+}
+.get-help-btn-assign:hover {
+  background-color: white;
+  color: #28a745;
+  border: 2px solid #28a745;
+}
+.assignment-section {
+  background-color: #f5f5f5;
+  width: 80%;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+ 
+  justify-content: space-between;
+}
+.assignment-question {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-direction: row;
+}
+.assignment-section .submit-btn {
+  margin-top: 20px;
+  padding: 8px 16px;
+  background-color: #6d241f;
+  color: white;
+  
+  border: none;
+  border-radius: 4px;
+  width: fit-content;
+  align-self: flex-start;
+}
+.assignment-section .submit-btn:hover{
+  transform: scale(1.02);
+}
+.success-message {
+    display: none;
+    color: green;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+/* End */
+
+/* Dark mode for Mcq Assignment */
+.dark-mode .assignment-section {
+  background: #333;
+}
+
+.dark-mode .assignment-section .submit-btn{
+  background-color: black;
+  
 }
 
 /* End */

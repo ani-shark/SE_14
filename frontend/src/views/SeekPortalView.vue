@@ -30,7 +30,13 @@
                 </div>
             </div>
             <div v-if="content && content.name && content.name.includes('Programming Assgmt')" class="content">
-                <prog-assgmt></prog-assgmt>
+                <prog-assgmt :details="content"></prog-assgmt>
+            </div>
+            <div v-else-if="content && content.name && content.name.includes('Lecture')" class="content">
+                <lectures :details="content"></lectures>
+            </div>
+            <div v-else-if="content && content.name && content.name.includes('Mcq')" class="content">
+                <mcq :details="content"></mcq>
             </div>
             <div v-else class="content">
                 <h3>{{ content ? content.name : 'No content available' }}</h3>
@@ -46,8 +52,10 @@
 <script>
 import SeekNavbar from "@/components/SeekNavbar.vue";
 import ProgAssignment from "@/components/ProgAssignment.vue";
+import LectureVideo from "@/components/LectureVideo.vue";
+import McqAssignment from "@/components/McqAssignment.vue";
 export default {
-    components: { "seek-nav": SeekNavbar, "prog-assgmt": ProgAssignment },
+    components: { "seek-nav": SeekNavbar, "prog-assgmt": ProgAssignment , "lectures":LectureVideo,"mcq":McqAssignment},
     data() {
         return {
             accordionVisible: false,
@@ -103,6 +111,7 @@ export default {
                 toggleButton.style.display = "block";
                 sidebar.style.display = 'none'
                 closeButton.style.display = 'block';
+                sidebar.style['z-index']=1000;
             } else {
                 sidebar.style.height = "100%";
                 sidebar.style.position = "";
