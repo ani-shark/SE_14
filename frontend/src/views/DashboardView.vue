@@ -1,21 +1,6 @@
 <template>
     <div class="my-courses">
-        <nav class="seek-navbar">
-            <div class="course-detail">
-                <div class="fs-5 text-truncate">
-                    <img src="@/assets/iitm-logo.png" alt="IITM Logo" />
-                    BS Degree in Data Science and Applications
-                </div>
-            </div>
-            <div class="navigation">
-                <button title="Signout" @click="signOut">
-                    <i class="fa fa-sign-out" aria-hidden="true"></i>
-                </button>
-                <button title="Change Theme" id="theme-toggle" class="theme-btn" @click="toggleTheme">
-                    {{ themeIcon }}
-                </button>
-            </div>
-        </nav>
+        <seek-nav type="student dashboard" title="BS Degree in Data Science and Applications"></seek-nav>
 
         <div class="container meta-info">
             <div>
@@ -43,7 +28,7 @@
                         </li>
                     </ul>
                 </div>
-                <router-link to="/seek_portal" class="btn-primary">
+                <router-link to="/Seek" class="btn-primary">
                     Go to Course Page <i class="fa-solid fa-arrow-right"></i>
                 </router-link>
             </div>
@@ -57,9 +42,10 @@
 
 <script>
 import { mapState } from "vuex";
-
+import SeekNavbar from "@/components/SeekNavbar.vue";
 export default {
     name: "MyCourses",
+    components:{"seek-nav":SeekNavbar},
     data() {
         return {
             courses: [

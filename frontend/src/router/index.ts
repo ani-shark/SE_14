@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -16,6 +15,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/Register',
     name: 'student registration',
     component: () => import(/* webpackChunkName: "student registration" */ '../views/RegistrationView.vue')
+  },
+  {
+    path: '/Seek',
+    name: 'seek portal',
+    component: () => import(/* webpackChunkName: "seek portal" */ '../views/SeekPortalView.vue')
   }
 ]
 
