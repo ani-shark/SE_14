@@ -604,7 +604,9 @@ body {
   color: black;
   padding: 0.8em;
   font-weight: bold;
-  display: flex;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -724,6 +726,7 @@ body {
   background-color: white;
   color: #6d241f;
   border:2px solid #6d241f;
+  width:fit-content;
 }
 /* End */
 

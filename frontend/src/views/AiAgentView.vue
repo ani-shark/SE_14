@@ -6,9 +6,10 @@
         <div class="accordion" id="accordion">
             <button id="close-accordion" class="accordion-close">✖</button>
             <div class="chat-header">
-                <div class="text-truncate" style="width: 80%">Chat History</div>
+                <div class="text-truncate" >Chat History</div>
+                <button @click="buttonNew()" class="new-chat-btn">+ New Chat</button>
             </div>
-            <button @click="buttonNew()" class="new-chat-btn">+ New Chat</button>
+            
             <div class="chat-list">
                 <div class="chat-item" v-for="(chat, index) in chatHistory" :key="index">
                     <div class="text-truncate" style="padding-left: 0.8em">{{ chat.title }}</div>
