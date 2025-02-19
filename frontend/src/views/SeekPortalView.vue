@@ -43,8 +43,9 @@
             </div>
         </div>
 
-        <button class="ai-agent-button">
-            <a href="ai_agent.html"><i class="fa-regular fa-message"></i></a>
+        <button class="ai-agent-button" @click="this.$router.push({path:'/Agent',query:{}})">
+
+            <i class="fa-regular fa-message"></i>
         </button>
     </div>
 </template>
@@ -92,11 +93,6 @@ export default {
         closeSidebar() {
             this.accordionVisible = false;
         },
-        toggleTheme() {
-            const body = document.body;
-            body.classList.toggle("dark-mode");
-            localStorage.setItem("theme", body.classList.contains("dark-mode") ? "dark" : "light");
-        },
         adjustSidebar() {
             const sidebar = document.getElementById("accordion");
             const toggleButton = document.getElementById("accordion-toggle");
@@ -125,8 +121,7 @@ export default {
                 sidebar.style.display = 'block';
                 this.style.display = "none";
             });
-
-
+            
             closeButton.addEventListener("click", function () {
                 sidebar.style.display = "none";
                 toggleButton.style.display = "block";
@@ -137,11 +132,13 @@ export default {
         if (localStorage.getItem("theme") === "dark") {
             document.body.classList.add("dark-mode");
         }
+
+        // Sidebar Responsiveness
         window.addEventListener("load", this.adjustSidebar);
         window.addEventListener("resize", this.adjustSidebar);
         this.adjustSidebar()
 
-
+        // Animation 
         document.querySelectorAll(".accordion-header").forEach((item) => {
             item.addEventListener("click", function () {
                 this.classList.toggle("active");
@@ -158,7 +155,7 @@ export default {
             });
         });
 
-
+        // To set content on Load
         const { id: contentId, name: contentName } = this.$route.query;
         let ans = null;
 
@@ -172,7 +169,7 @@ export default {
             });
         }
 
-        // Default to "Course Intro" if no valid content found
+        
         if (!ans) {
             ans = this.weeks[0].content[0];
         }

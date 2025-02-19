@@ -7,16 +7,24 @@
             </div>
         </div>
         <div class="navigation">
-
             <button v-if="type == 'seek portal'" title="Go back" @click="this.$router.push('/Dashboard')">
-
                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
-
+            </button>
+            <button v-else-if="type == 'ai agent'" title="Close Agent">
+                <router-link :to="this.$router.options.history.state.back || '/Dashboard'">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                </router-link>
+            </button>
+            <button v-else-if="type == 'admin'" title="Close Agent">
+                <router-link to="/Admin/SignIn">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                </router-link>
             </button>
             <button v-else title="Signout" @click="this.$router.push('/SignIn')">
                 <i class="fa fa-sign-out" aria-hidden="true"></i>
-                    
-                </button>
+
+            </button>
+
             <button title="Change Theme" @click="toggleTheme" class="theme-btn">
                 {{ currentTheme === 'dark' ? '☀️' : '🌙' }}
             </button>
@@ -38,7 +46,7 @@ export default {
     },
     data() {
         return {
-            themeIcon:null
+            themeIcon: null
         }
     },
     methods: {
@@ -56,7 +64,7 @@ export default {
         }
     },
     beforeUnmount() {
-        if(document.body.classList.contains('dark-mode')){
+        if (document.body.classList.contains('dark-mode')) {
             document.body.classList.remove('dark-mode');
         }
     }

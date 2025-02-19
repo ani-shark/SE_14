@@ -40,7 +40,7 @@
                     <i class="fas fa-upload"></i> Upload File
                 </label>
             </div>
-            <button class="get-help-btn">Get Help</button>
+            <button class="get-help-btn" @click="getHelp()">Get Help</button>
         </div>
 
         <div class="test-results">
@@ -51,20 +51,27 @@
 
 <script>
 export default {
-    props:{details:{
-        type:String,
-        required:true
-    }},
+    props: {
+        details: {
+            type: Object,
+            required: true
+        }
+    },
     data() {
         return {
-            
+
         };
     },
     methods: {
-       
+        // Get AI Agent guidance for this Mcq
+        getHelp() {
+            const query = { ...this.details };
+            this.$router.push({ path: '/Agent', query: query })
+        }
+
     },
     computed: {
-       
+
     }
 };
 </script>

@@ -6,9 +6,9 @@
             <div>
                 <h3>My Current Courses</h3>
                 <p>
-                    Cumulative Grade Point Average (CGPA) till this term - <b>{{ cgpa }}</b><br />
+                    Cumulative Grade Point Average (CGPA) till this term - <b>9</b><br />
                     Project Cumulative Grade Point Average (Project CGPA) till this term -
-                    <b>{{ projectCgpa }}</b>
+                    <b>10</b>
                 </p>
             </div>
             <div>
@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import SeekNavbar from "@/components/SeekNavbar.vue";
 export default {
     name: "MyCourses",
@@ -62,9 +61,6 @@ export default {
             }),
             themeIcon: localStorage.getItem("theme") === "dark" ? "☀️" : "🌙",
         };
-    },
-    computed: {
-        ...mapState(["cgpa", "projectCgpa"]),
     },
     mounted() {
         this.applyTheme();

@@ -16,7 +16,7 @@
                 </ul>
             </div>
 
-            <button class="get-help-btn-assign">Get Help</button>
+            <button class="get-help-btn-assign" @click="getHelp()">Get Help</button>
         </div>
         <div class="assignment-question">
             <div class="assignment-question-content">
@@ -29,21 +29,8 @@
                 </ul>
             </div>
 
-            <button class="get-help-btn-assign">Get Help</button>
+            <button class="get-help-btn-assign" @click="getHelp()">Get Help</button>
         </div>
-        <!-- <div class="assignment-question">
-            <div class="assignment-question-content">
-                <p>2. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <ul>
-                    <li><input type="radio" name="question1"> Option 1</li>
-                    <li><input type="radio" name="question2"> Option 2</li>
-                    <li><input type="radio" name="question3"> Option 3</li>
-                    <li><input type="radio" name="question4"> Option 4</li>
-                </ul>
-            </div>
-
-            <button class="get-help-btn-assign">Get Help</button>
-        </div> -->
 
         <button class="submit-btn" id="submit-btn">Submit</button>
         <p class="success-message" id="success-message">Assignment Submitted Successfully!</p>
@@ -55,7 +42,7 @@
 export default {
     props: {
         details: {
-            type: String,
+            type: Object,
             required: true
         }
     },
@@ -65,7 +52,11 @@ export default {
         };
     },
     methods: {
-
+        // Get AI Agent guidance for this Mcq
+        getHelp(){
+            const query = {...this.details};
+            this.$router.push({path:'/Agent',query:query})
+        }
     },
 };
 </script>

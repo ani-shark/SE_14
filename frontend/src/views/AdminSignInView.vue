@@ -10,25 +10,21 @@
 
         <div class="sign-in-form-box">
             <div class="sign-in">
-                <h2>Sign In</h2>
+                <h2>Admin Sign In</h2>
                 <p>
-                    Sign-in using the Google account you registered with to access your course dashboard.
+                    Sign-in using the Google account you have been authorized.
                 </p>
-                <button @click="this.$router.push('/DashBoard')">Sign in with Google</button>
-                <span style="margin-top: 1rem;">
-                    Not registered?
-                    <router-link to="/Register" style="color: aqua">Register now</router-link>
-                </span>
+                <button @click="this.$router.push('/Admin')">Sign in with Google</button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
 
 export default {
     methods: {
+        
     },
 };
 </script>
