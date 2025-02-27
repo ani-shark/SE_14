@@ -2,18 +2,9 @@
 Software Engineering group project 
 
 ## Backend Set up
-
-
-### Navigate to the backend directory
-# Flask App Setup Guide
-
-## Prerequisites
 Ensure you have the following installed on your system:
 - Python (version 3.x recommended)
 - pip (Python package manager)
-- virtualenv (optional but recommended for dependency management)
-
-## Backend
 
 ### Setting up the backend
 ```
