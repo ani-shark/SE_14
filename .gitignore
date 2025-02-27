@@ -1,4 +1,8 @@
 __pycache__
+.vscode
 
 # Node modules in the 'frontend' folder
 frontend/node_modules/
+
+# Virtual environment folder
+backend/venv/

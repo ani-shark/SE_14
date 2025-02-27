@@ -7,7 +7,7 @@
             <button id="close-accordion" class="accordion-close">✖</button>
             <div class="chat-header">
                 <div class="text-truncate" >Chat History</div>
-                <button @click="buttonNew()" class="new-chat-btn">+ New Chat</button>
+                <button @click="buttonNew()">+ New Chat</button>
             </div>
             
             <div class="chat-list">
