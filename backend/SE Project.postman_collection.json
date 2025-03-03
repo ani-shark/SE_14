@@ -564,6 +564,305 @@
 			]
 		},
 		{
+			"name": "Assignments",
+			"item": [
+			  {
+				"name": "Create MCQ Assignment",
+				"request": {
+				  "method": "POST",
+				  "header": [
+					{
+					  "key": "X-CSRF-Token",
+					  "value": "{{csrf_access_token}}",
+					  "type": "text"
+					}
+				  ],
+				  "body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Sample MCQ Assignment\",\n    \"description\": \"This is a sample MCQ quiz with basic math questions.\",\n    \"week_id\": 1,\n    \"questions\": [\n        {\n            \"text\": \"What is 2 + 2?\",\n            \"options\": [\n                {\"text\": \"3\"},\n                {\"text\": \"4\"},\n                {\"text\": \"5\"}\n            ],\n            \"correct_option\": \"4\"\n        },\n        {\n            \"text\": \"What is 5 * 6?\",\n            \"options\": [\n                {\"text\": \"30\"},\n                {\"text\": \"25\"},\n                {\"text\": \"35\"}\n            ],\n            \"correct_option\": \"30\"\n        },\n        {\n            \"text\": \"What is 10 / 2?\",\n            \"options\": [\n                {\"text\": \"4\"},\n                {\"text\": \"5\"},\n                {\"text\": \"6\"}\n            ],\n            \"correct_option\": \"5\"\n        }\n    ]\n}",
+					"options": {
+					  "raw": {
+						"language": "json"
+					  }
+					}
+				  },
+				  "url": {
+					"raw": "{{base_url}}/assignment/mcq",
+					"host": ["{{base_url}}"],
+					"path": ["assignment", "mcq"]
+				  }
+				}
+			  },
+			  {
+				"name": "Update MCQ Assignment",
+				"request": {
+				  "method": "PUT",
+				  "header": [
+					{
+					  "key": "X-CSRF-Token",
+					  "value": "{{csrf_access_token}}",
+					  "type": "text"
+					}
+				  ],
+				  "body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Updated MCQ Assignment 1\",\n    \"description\": \"Updated basic math quiz\"\n}",
+					"options": {
+					  "raw": {
+						"language": "json"
+					  }
+					}
+				  },
+				  "url": {
+					"raw": "{{base_url}}/assignment/mcq/1",
+					"host": ["{{base_url}}"],
+					"path": ["assignment", "mcq", "1"]
+				  }
+				}
+			  },
+			  {
+				"name": "Delete MCQ Assignment",
+				"request": {
+				  "method": "DELETE",
+				  "header": [
+					{
+					  "key": "X-CSRF-Token",
+					  "value": "{{csrf_access_token}}",
+					  "type": "text"
+					}
+				  ],
+				  "url": {
+					"raw": "{{base_url}}/assignment/mcq/1",
+					"host": ["{{base_url}}"],
+					"path": ["assignment", "mcq", "1"]
+				  }
+				}
+			  },
+			  {
+				"name": "Get MCQ Assignment",
+				"request": {
+				  "method": "GET",
+				  "header": [],
+				  "url": {
+					"raw": "{{base_url}}/assignment/mcq/1",
+					"host": ["{{base_url}}"],
+					"path": ["assignment", "mcq", "1"]
+				  }
+				}
+			  },
+			  {
+				"name": "Get All MCQ Assignments",
+				"request": {
+				  "method": "GET",
+				  "header": [],
+				  "url": {
+					"raw": "{{base_url}}/assignment/mcq",
+					"host": ["{{base_url}}"],
+					"path": ["assignment", "mcq"]
+				  }
+				}
+			  },
+			  {
+				"name": "Create Programming Assignment",
+				"request": {
+				  "method": "POST",
+				  "header": [
+					{
+					  "key": "X-CSRF-Token",
+					  "value": "{{csrf_access_token}}",
+					  "type": "text"
+					}
+				  ],
+				  "body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Programming Assignment 1\",\n    \"description\": \"Write a program to add two numbers.\",\n    \"week_id\": 1,\n    \"test_cases\": [\n        {\"input\": \"2 3\", \"expected_output\": \"5\"},\n        {\"input\": \"10 20\", \"expected_output\": \"30\"}\n    ]\n}",
+					"options": {
+					  "raw": {
+						"language": "json"
+					  }
+					}
+				  },
+				  "url": {
+					"raw": "{{base_url}}/assignment/programming",
+					"host": ["{{base_url}}"],
+					"path": ["assignment", "programming"]
+				  }
+				}
+			  },
+			  {
+				"name": "Update Programming Assignment",
+				"request": {
+				  "method": "PUT",
+				  "header": [
+					{
+					  "key": "X-CSRF-Token",
+					  "value": "{{csrf_access_token}}",
+					  "type": "text"
+					}
+				  ],
+				  "body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Updated Programming Assignment 1\",\n    \"description\": \"Updated: Write a program to add two numbers.\"\n}",
+					"options": {
+					  "raw": {
+						"language": "json"
+					  }
+					}
+				  },
+				  "url": {
+					"raw": "{{base_url}}/assignment/programming/1",
+					"host": ["{{base_url}}"],
+					"path": ["assignment", "programming", "1"]
+				  }
+				}
+			  },
+			  {
+				"name": "Delete Programming Assignment",
+				"request": {
+				  "method": "DELETE",
+				  "header": [
+					{
+					  "key": "X-CSRF-Token",
+					  "value": "{{csrf_access_token}}",
+					  "type": "text"
+					}
+				  ],
+				  "url": {
+					"raw": "{{base_url}}/assignment/programming/1",
+					"host": ["{{base_url}}"],
+					"path": ["assignment", "programming", "1"]
+				  }
+				}
+			  },
+			  {
+				"name": "Get Programming Assignment",
+				"request": {
+				  "method": "GET",
+				  "header": [],
+				  "url": {
+					"raw": "{{base_url}}/assignment/programming/1",
+					"host": ["{{base_url}}"],
+					"path": ["assignment", "programming", "1"]
+				  }
+				}
+			  },
+			  {
+				"name": "Get All Programming Assignments",
+				"request": {
+				  "method": "GET",
+				  "header": [],
+				  "url": {
+					"raw": "{{base_url}}/assignment/programming",
+					"host": ["{{base_url}}"],
+					"path": ["assignment", "programming"]
+				  }
+				}
+			  },
+			  {
+				"name": "Submit MCQ Answer",
+				"request": {
+				  "method": "POST",
+				  "header": [
+					{
+					  "key": "X-CSRF-Token",
+					  "value": "{{csrf_access_token}}",
+					  "type": "text"
+					}
+				  ],
+				  "body": {
+					"mode": "raw",
+					"raw": "{\n    \"assignment_id\": 1,\n    \"answers\": {\n        \"1\": \"8\",\n        \"2\": \"variable_name\"\n    }\n}",
+					"options": {
+					  "raw": {
+						"language": "json"
+					  }
+					}
+				  },
+				  "url": {
+					"raw": "{{base_url}}/assignment/submit/mcq",
+					"host": ["{{base_url}}"],
+					"path": ["assignment", "submit", "mcq"]
+				  }
+				}
+			  },
+			  {
+				"name": "Submit Programming Solution",
+				"request": {
+				  "method": "POST",
+				  "header": [
+					{
+					  "key": "X-CSRF-Token",
+					  "value": "{{csrf_access_token}}",
+					  "type": "text"
+					}
+				  ],
+				  "body": {
+					"mode": "raw",
+					"raw": "{\n    \"assignment_id\": 2,\n    \"code\": \"print(sum(map(int, input().split())))\"\n}",
+					"options": {
+					  "raw": {
+						"language": "json"
+					  }
+					}
+				  },
+				  "url": {
+					"raw": "{{base_url}}/assignment/submit/programming",
+					"host": ["{{base_url}}"],
+					"path": ["assignment", "submit", "programming"]
+				  }
+				}
+			  },
+			  {
+				"name": "Get User's MCQ Scores",
+				"request": {
+				  "method": "GET",
+				  "header": [],
+				  "url": {
+					"raw": "{{base_url}}/assignment/submit/mcq",
+					"host": ["{{base_url}}"],
+					"path": ["assignment", "submit", "mcq"]
+				  }
+				}
+			  },
+			  {
+				"name": "Get User's MCQ Score for Specific Assignment",
+				"request": {
+				  "method": "GET",
+				  "header": [],
+				  "url": {
+					"raw": "{{base_url}}/assignment/submit/mcq/1",
+					"host": ["{{base_url}}"],
+					"path": ["assignment", "submit", "mcq", "1"]
+				  }
+				}
+			  },
+			  {
+				"name": "Get User's Programming Scores",
+				"request": {
+				  "method": "GET",
+				  "header": [],
+				  "url": {
+					"raw": "{{base_url}}/assignment/submit/programming",
+					"host": ["{{base_url}}"],
+					"path": ["assignment", "submit", "programming"]
+				  }
+				}
+			  },
+			  {
+				"name": "Get User's Programming Score for Specific Assignment",
+				"request": {
+				  "method": "GET",
+				  "header": [],
+				  "url": {
+					"raw": "{{base_url}}/assignment/submit/programming/1",
+					"host": ["{{base_url}}"],
+					"path": ["assignment", "submit", "programming", "1"]
+				  }
+				}
+			  }
+			]
+		  },		
+		{
 			"name": "Lecture",
 			"item": [
 				{

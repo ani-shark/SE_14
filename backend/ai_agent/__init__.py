@@ -61,10 +61,11 @@ def create_app():
 
             db.session.commit()
             
-            from ai_agent.utils import add_courses, add_users
+            from ai_agent.utils import add_courses, add_users, add_mcq, add_programming
             add_courses()
             add_users()
-            
+            add_programming()
+            add_mcq()
     
     from ai_agent.api import assignment, auth, course, user, week,lecture
     app.register_blueprint(auth.auth_bp, url_prefix='/auth')
