@@ -2,8 +2,8 @@ from functools import wraps
 from flask import jsonify
 from flask_jwt_extended import get_jwt_identity, verify_jwt_in_request
 from ai_agent import db
-from ai_agent.models import User, RoleEnum, Course, UserCourse, Week
-
+from ai_agent.models import Lectures, User, RoleEnum, Course, UserCourse, Week
+import random
 
 def permission_required(permission):
     def decorator(f):
@@ -18,7 +18,7 @@ def permission_required(permission):
                 else:
                     return f(*args, **kwargs)
             except Exception as e:
-                return jsonify(msg=str(e)), 401
+                return jsonify(error=str(e)), 401
 
         decorated_function.__name__ = f.__name__
         return decorated_function
@@ -41,7 +41,7 @@ def add_users():
          "name": "Admin User", "role": RoleEnum.ADMIN},
     ]
     course_list = Course.query.all()
-    import random
+   
     for user_data in user_list:
         new_user = User(**user_data)
         db.session.add(new_user)
@@ -65,8 +65,8 @@ def add_courses():
         {"name": "Programming in Python", "intro": "An introduction to Python programming covering syntax, control flow, functions, and object-oriented programming. This course is designed for beginners looking to build a strong foundation in Python."},
         {"name": "Statistics 2", "intro": "An advanced statistics course covering hypothesis testing, regression analysis, probability distributions, and inferential statistics. Ideal for students who want to deepen their understanding of statistical methods."}
     ]
+    
     new_courses = []
-    new_weeks = []
 
     for course_data in course_list:
         new_course = Course(**course_data)
@@ -76,9 +76,16 @@ def add_courses():
     db.session.commit()
 
     for course in new_courses:
+        
         for i in range(12):
             new_week = Week(name=f'Week {i+1}', course_id=course.id)
-            new_weeks.append(new_week)
-
-    db.session.add_all(new_weeks)
+            db.session.add(new_week)
+            db.session.commit()
+        
+            num_lectures = random.randint(1, 3)
+            for i in range(num_lectures):
+                new_lecture = Lectures(name=f"Lecture {i+1}",week_id=new_week.id,link='https://youtu.be/81BaOIrfvJA')
+                db.session.add(new_lecture)
+                db.session.commit()
+            
     db.session.commit()

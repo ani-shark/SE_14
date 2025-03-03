@@ -72,7 +72,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"john_doe@example.com\"\r\n}",
+							"raw": "{\r\n    \"email\":\"admin@example.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -276,13 +276,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/course/5",
+							"raw": "{{base_url}}/course/2",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"course",
-								"5"
+								"2"
 							]
 						}
 					},
@@ -460,7 +460,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Week 1 - Introduction\",\r\n    \"course_id\": 1\r\n}",
+							"raw": "{\r\n    \"name\": \"Week 1 - Introduction\",\r\n    \"course_id\": 12\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -493,7 +493,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Week 2 New Name\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Week 2 New Name\",\r\n    \"course_id\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -536,6 +536,143 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "get week",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-CSRF-Token",
+								"value": "{{csrf_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/week/13",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"week",
+								"13"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lecture",
+			"item": [
+				{
+					"name": "get lecture",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/lecture/10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"lecture",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create lecture",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRF-Token",
+								"value": "{{csrf_access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"New Lecture x\",\r\n    \"week_id\":13,\r\n    \"link\":\"https://youtu.be/81BaOIrfvJA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/lecture/create",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"lecture",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update lecture",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-CSRF-Token",
+								"value": "{{csrf_access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"New Lecture x v2\",\r\n    \"week_id\":13,\r\n    \"link\":\"https://youtu.be/81BaOIrfvJA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/lecture/93",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"lecture",
+								"93"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete week",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-CSRF-Token",
+								"value": "{{csrf_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/lecture/93",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"lecture",
+								"93"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
@@ -569,14 +706,12 @@
 			"type": "string"
 		},
 		{
-			"key": "csrf_refresh_token",
-			"value": "",
-			"type": "string"
+			"key": "csrf_access_token",
+			"value": ""
 		},
 		{
-			"key": "csrf_access_token",
-			"value": "",
-			"type": "string"
+			"key": "csrf_refresh_token",
+			"value": ""
 		}
 	]
 }

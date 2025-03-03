@@ -5,6 +5,8 @@ from datetime import timedelta
 from flask_jwt_extended import create_access_token,create_refresh_token,\
     set_access_cookies,set_refresh_cookies,jwt_required,unset_jwt_cookies,get_jwt_identity
 
+from ai_agent.validation import validate_email
+
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -14,29 +16,30 @@ class AuthAPI(MethodView):
 
     def post(self):
         data = request.get_json()
-    
+
+        if not validate_email(data.get('email','')):
+            return jsonify(error='invalid or missing email'),400
+        
+        
         user = User.query.filter_by(email = data.get('email')).first()
-            
         if not user:
             return jsonify(error='invalid user credentials'),401
+            
             
         response = jsonify(message="sign in successful.")
         if user.role == RoleEnum.ADMIN:
             access_token = create_access_token(identity=str(user.id),expires_delta=timedelta(minutes=35))
             refresh_token = create_refresh_token(identity=str(user.id),expires_delta=timedelta(minutes=180))  
-
             set_access_cookies(response,access_token,max_age=timedelta(minutes=30))
             set_refresh_cookies(response,refresh_token,max_age=timedelta(minutes=175))
-        
         else:
             access_token = create_access_token(identity=str(user.id),expires_delta=timedelta(minutes=60))
             refresh_token = create_refresh_token(identity=str(user.id),expires_delta=timedelta(days=15))
-
             set_access_cookies(response,access_token,max_age=timedelta(minutes=55))
             set_refresh_cookies(response,refresh_token,max_age=timedelta(days=14))
-
         
         return response,200
+      
     
     
     @jwt_required(verify_type=False)
@@ -53,23 +56,23 @@ class RefreshAPI(MethodView):
     def post(self):
         user_id = get_jwt_identity()
         user = User.query.get(user_id)
-
-        if user:
-            response = jsonify(message="access token refreshed")
-
-            if user.role == RoleEnum.ADMIN:
-                access_token = create_access_token(identity=str(user.id),expires_delta=timedelta(minutes=35))
-                set_access_cookies(response,access_token,max_age=timedelta(minutes=30))
-            
-            else:
-                access_token = create_access_token(identity=str(user.id),expires_delta=timedelta(minutes=60))
-                set_access_cookies(response,access_token,max_age=timedelta(minutes=55))
-
-            
-            return response,200
-
-        else:
+        
+        if not user:
             return jsonify(error='invalid request.'),401
+
+        response = jsonify(message="access token refreshed")
+        if user.role == RoleEnum.ADMIN:
+          
+            access_token = create_access_token(identity=str(user.id),expires_delta=timedelta(minutes=35))
+            set_access_cookies(response,access_token,max_age=timedelta(minutes=30))
+        else:
+            
+            access_token = create_access_token(identity=str(user.id),expires_delta=timedelta(minutes=60))
+            set_access_cookies(response,access_token,max_age=timedelta(minutes=55))
+        
+        return response,200
+
+    
 
 
 authenticate_view = AuthAPI.as_view('authenticate')

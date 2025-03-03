@@ -1,7 +1,7 @@
 import json
 import os
 from pathlib import Path
-from flask import Flask
+from flask import Flask, jsonify
 from flask_migrate import Migrate, init, upgrade, migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
@@ -13,6 +13,15 @@ db = SQLAlchemy()
 migrate_db = Migrate()
 jwt = JWTManager()
 
+
+@jwt.unauthorized_loader
+def custom_unauthorized_response(error):
+    return jsonify(error = "Authorization token is missing or invalid"), 401
+
+
+@jwt.invalid_token_loader
+def custom_invalid_token_response(error):
+    return jsonify(error = "The token provided is expired or malformed"), 401
 
 
 
@@ -57,12 +66,13 @@ def create_app():
             add_users()
             
     
-    from ai_agent.api import assignment, auth, course, user, week
+    from ai_agent.api import assignment, auth, course, user, week,lecture
     app.register_blueprint(auth.auth_bp, url_prefix='/auth')
     app.register_blueprint(course.course_bp, url_prefix='/course')
     app.register_blueprint(week.week_bp, url_prefix='/week')
     app.register_blueprint(user.user_bp, url_prefix='/user')
     app.register_blueprint(assignment.assignment_bp, url_prefix='/assignment')
+    app.register_blueprint(lecture.lecture_bp, url_prefix='/lecture') 
 
     setup_migrations(app)
     return app

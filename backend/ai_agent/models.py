@@ -132,15 +132,18 @@ class Lectures(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     week_id = db.Column(db.Integer, db.ForeignKey('week.id'), nullable=False)
-
-    def __init__(self, name, week_id):
+    link = db.Column(db.String(150), nullable=False)
+    
+    def __init__(self, name, week_id, link):
         self.name = name
         self.week_id = week_id
+        self.link = link
     
     def to_dict(self):
         return {
             "id": self.id,
-            "name": self.name
+            "name": self.name,
+            "link":self.link
         }
 
 
