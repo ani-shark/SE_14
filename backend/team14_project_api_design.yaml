@@ -1,0 +1,1889 @@
+openapi: 3.0.0
+info:
+  title: Software Engineering Project API
+  description: API documentation for AI Agent. Submitted by Team 14 in Jan 2025 term.
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:5000/
+
+components:
+
+  securitySchemes:
+    
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  
+  schemas:
+
+    RoleEnum:
+      type: string
+      enum:
+        - student
+        - admin
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        name:
+          type: string
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        courses:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+
+    Course:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        intro:
+          type: string
+        weeks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Week'
+
+    Week:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        mcq:
+          type: array
+          items:
+            $ref: '#/components/schemas/McqAssignment'
+        programming:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProgrammingAssignment'
+        lectures:
+          type: array
+          items:
+            $ref: '#/components/schemas/Lectures'
+
+    Lectures:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        link:
+          type: string
+
+    McqAssignment:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        week_id:
+          type: integer
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/McqQuestion'
+
+    McqQuestion:
+      type: object
+      properties:
+        id:
+          type: integer
+        text:
+          type: string
+        correct_option:
+          type: string
+        options:
+          type: array
+          items:
+            type: string
+
+    ProgrammingAssignment:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        test_cases:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProgrammingTestCase'
+
+    ProgrammingTestCase:
+      type: object
+      properties:
+        id:
+          type: integer
+        input:
+          type: string
+        expected_output:
+          type: string
+
+    McqScores:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        assignment_id:
+          type: integer
+        score:
+          type: integer
+
+    ProgrammingScores:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        assignment_id:
+          type: integer
+        score:
+          type: integer
+
+tags:
+  - name: Authentication
+    description: Endpoints for Authentication APIs.
+  - name: User
+    description: Endpoints for User APIs.
+  - name: Course
+    description: Endpoints for Course APIs.
+  - name: Week
+    description: Endpoints for Week APIs.
+  - name: Assignment
+    description: Endpoints for Assignment APIs.
+  - name: Lecture
+    description: Endpoints for Lecture APIs.
+
+paths:
+
+  /auth/signin:
+    post:
+      tags:
+        - Authentication
+      summary: Authenticate user
+      description: Authenticates the user and generates an access token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: "student@iitm.com"
+      responses:
+        '200':
+          description: Successful authentication
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "sign in successful."
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "invalid or missing email"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "invalid user credentials"
+  
+  /auth/signout:
+    delete:
+      tags:
+        - Authentication
+      summary: Sign out user
+      description: Logs out the user and invalidates the access token.
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful signout
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "signout successful."
+
+  /auth/refresh:
+    post:
+      tags:
+        - Authentication
+      summary: Refresh access token
+      description: Refreshes the access token.
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Access token refreshed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "access token refreshed"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "invalid request."
+
+  
+  /user/register:
+    post:
+      tags:
+        - User
+      summary: Register user
+      description: Registers a new user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: student@iitm.com
+                name:
+                  type: string
+                  example: John Doe
+                register_courses:
+                  type: array
+                  items:
+                    type: array
+                    items:
+                      oneOf:
+                        - type: integer
+                        - type: string
+                  example:
+                    - [1, "Programming, Data Structures and Algorithms using Python"]
+                    - [2, "Tools in Data Science"]
+      responses:
+        '201':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: user registered successfully
+                  user_info:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: John Doe
+                      email:
+                        type: string
+                        format: email
+                        example: student@iitm.com
+                      register_courses:
+                        type: array
+                        items:
+                          type: array
+                          items:
+                            oneOf:
+                              - type: integer
+                              - type: string
+                        example:
+                          - [1, "Programming, Data Structures and Algorithms using Python"]
+                          - [2, "Tools in Data Science"]
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid input"
+
+  /user/get:
+    get:
+      tags:
+        - User
+      summary: Retrieve user details.
+      description: Retrieves user details.
+      security:
+        - BearerAuth: []
+      responses:
+        200:
+          description: Successfully retrieved profile details.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_info:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: John Doe
+                      email:
+                        type: string
+                        format: email
+                        example: student@iitm.com
+                      register_courses:
+                        type: array
+                        items:
+                          type: array
+                          items:
+                            oneOf:
+                              - type: integer
+                              - type: string
+                        example:
+                          - [1, "Programming, Data Structures and Algorithms using Python"]
+                          - [2, "Tools in Data Science"]
+        404:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "user not found"
+  
+  /user/edit:
+    put:
+      summary: Update user profile
+      description: Updates user profile details
+      tags:
+        - User
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: john@iitm.com
+                name:
+                  type: string
+                  example: John Doe
+                register_courses:
+                        type: array
+                        items:
+                          type: array
+                          items:
+                            oneOf:
+                              - type: integer
+                              - type: string
+                        example:
+                          - [3, "Programming in Python"]
+      responses:
+        '200':
+          description: Profile updated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: user data updated successfully
+                  user_info:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: John Doe
+                      email:
+                        type: string
+                        format: email
+                        example: john@iitm.com
+                      register_courses:
+                        type: array
+                        items:
+                          type: array
+                          items:
+                            oneOf:
+                              - type: integer
+                              - type: string
+                        example:
+                          - [1, "Programming, Data Structures and Algorithms using Python"]
+                          - [2, "Tools in Data Science"]
+                          - [3, "Programming in Python"]
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "invalid input"
+        '404':
+          description: User details not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "user not found"
+
+  /user/course/{course_id}:
+    get:
+      tags:
+        - User
+      summary: Get User Courses
+      description:  Retrieves the list of courses the user is enrolled in.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: course_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID of the course to retrieve.
+      responses:
+        200:
+          description: Successfully retrieved course details.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  email:
+                    type: string
+                    format: email
+                    example: student@iitm.com
+                  name:
+                    type: string
+                    example: John Doe
+                  role:
+                    type: string
+                    example: student
+                  course_content:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      title:
+                        type: string
+                        example: "Programming, Data Structures and Algorithms using Python"
+                      weeks:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            week_number:
+                              type: integer
+                              example: 1
+                            mcq:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: integer
+                                    example: 10
+                                  question:
+                                    type: string
+                                    example: "What is data structure?"
+                            programming:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: integer
+                                    example: 20
+                                  problem:
+                                    type: string
+                                    example: "Implement an algorithm."
+                  mcq_scores:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        mcq_id:
+                          type: integer
+                          example: 10
+                        score:
+                          type: integer
+                          example: 5
+                  programming_scores:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        programming_id:
+                          type: integer
+                          example: 20
+                        score:
+                          type: integer
+                          example: 90
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "user not enrolled in this course"
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "course not found"
+
+  
+  /course/create:
+    post:
+      summary: Create a new course
+      description: Creates a new course.
+      security:
+        - BearerAuth: []
+      tags:
+        - Course
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Software Engineering
+                intro:
+                  type: string
+                  example: This course covers fundamental concepts in software development life cycle.
+              required:
+                - name
+                - intro
+      responses:
+        201:
+          description: Course created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: course created successfully
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: Software Engineering
+                  intro:
+                    type: string
+                    example: This course covers fundamental concepts in software development life cycle.
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: validation error
+
+  /course/{id}:
+    get:
+      summary: Get a course by ID
+      description: Retrieves course details by ID.
+      security:
+        - BearerAuth: []
+      tags:
+        - Course
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Course retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: Software Engineering
+                  intro:
+                    type: string
+                    example: This course covers fundamental concepts in software development life cycle.
+        404:
+          description: Course not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: course not found
+  
+    put:
+      summary: Update a course by ID
+      description: Updates an existing course.
+      security:
+        - BearerAuth: []
+      tags:
+        - Course
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  name:
+                    type: string
+                    example: Advanced Data Science
+                  intro:
+                    type: string
+                    example: This course explores advanced topics in data science, including machine learning and AI.
+      responses:
+        200:
+          description: Course updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: course updated successfully
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: Advanced Data Science
+                  intro:
+                    type: string
+                    example: This course explores advanced topics in data science, including machine learning and AI.
+        400:
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: validation error
+        404:
+          description: Course not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: course not found
+  
+    delete:
+      summary: Delete a course by ID
+      description: Deletes a course.
+      security:
+        - BearerAuth: []
+      tags:
+        - Course
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Course deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: course deleted successfully
+        404:
+          description: Course not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: course not found
+
+  /course/all:
+    get:
+      summary: Get all courses
+      description: Retrieves a list of all available courses
+      security:
+        - BearerAuth: []
+      tags:
+        - Course
+      responses:
+        200:
+          description: List of all courses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: Software Engineering
+                    intro:
+                      type: string
+                      example: This course covers fundamental concepts in software development life cycle.
+
+  
+  /week/create:
+    post:
+      summary: Create a new week
+      description: Creates a new week entry in a course.
+      security:
+        - BearerAuth: []
+      tags:
+        - Week
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Week 1 - Introduction
+                course_id:
+                  type: integer
+                  example: 12
+              required:
+                - name
+                - course_id
+      responses:
+        201:
+          description: Week created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: week created successfully
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: Week 1 - Introduction
+                  course_id:
+                    type: integer
+                    example: 12
+        400:
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: validation error
+        404:
+          description: Unauthorized (Admin only)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: unauthorized
+
+  /week/{id}:
+    get:
+      summary: Get a week by ID
+      description: Retrieves details of a specific week in a course.
+      security:
+        - BearerAuth: []
+      tags:
+        - Week
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Week retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: Week 1 - Introduction
+                  course_id:
+                    type: integer
+                    example: 12
+        404:
+          description: Week not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: week not found
+    put:
+      summary: Update a week by ID
+      description: Updates details of an existing week.
+      security:
+        - BearerAuth: []
+      tags:
+        - Week
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Week 2 Introduction
+                course_id:
+                  type: integer
+                  example: 3
+      responses:
+        200:
+          description: Week updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: week updated successfully
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: Week 2 Introduction
+                  course_id:
+                    type: integer
+                    example: 3
+        400:
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: validation error
+        404:
+          description: Week not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: week not found
+        403:
+          description: Unauthorized (Admin only)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: unauthorized
+    delete:
+      summary: Delete a week by ID
+      description: Deletes a specific week.
+      security:
+        - BearerAuth: []
+      tags:
+        - Week
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Week deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: week deleted successfully
+        404:
+          description: Week not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: week not found
+        403:
+          description: Unauthorized (Admin only)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: unauthorized
+
+  
+  /assignment/mcq:
+    get:
+      tags:
+        - Assignment
+      summary: Get all MCQ assignments
+      description: Retrieves all MCQ assignments
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: List of MCQ assignments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 123
+                    title:
+                      type: string
+                      example: Sample MCQ Assignment
+                    description:
+                      type: string
+                      example: This is a sample MCQ quiz with basic math questions.
+                    week_id:
+                      type: integer
+                      example: 1
+                    questions:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          text:
+                            type: string
+                            example: What is 2 + 2?
+                          options:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                text:
+                                  type: string
+                                  example: 4
+                          correct_option:
+                            type: string
+                            example: 4
+    
+    post:
+      tags:
+        - Assignment
+      summary: Create a new MCQ assignment 
+      description: Create a new MCQ assignment with questions and options (Admin only)
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+           schema:
+             type: object
+             properties:
+               title:
+                 type: string
+                 example: Sample MCQ Assignment
+               description:
+                 type: string
+                 example: This is a sample MCQ quiz with basic math questions.
+               week_id:
+                 type: integer
+                 example: 1
+               questions:
+                 type: array
+                 items:
+                   type: object
+                   properties:
+                     text:
+                       type: string
+                       example: What is 2 + 2?
+                     options:
+                       type: array
+                       items:
+                         type: object
+                         properties:
+                           text:
+                             type: string
+                             example: 4
+                     correct_option:
+                       type: string
+                       example: 4
+      responses:
+        '201':
+          description: MCQ assignment created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 123
+                  title:
+                    type: string
+                    example: Sample MCQ Assignment
+                  description:
+                    type: string
+                    example: This is a sample MCQ quiz with basic math questions.
+                  week_id:
+                    type: integer
+                    example: 1
+                  questions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        text:
+                          type: string
+                          example: What is 2 + 2?
+                        options:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              text:
+                                type: string
+                                example: 3
+                        correct_option:
+                          type: string
+                          example: 4
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: week_id, title, and at least one question are required
+  
+  /assignment/mcq/{assignment_id}:
+    get:
+      tags:
+        - Assignment
+      summary: Get a specific MCQ assignment
+      description: Retrieves a specific MCQ assignment.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: assignment_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: MCQ assignment details retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 123
+                  title:
+                    type: string
+                    example: Sample MCQ Assignment
+                  description:
+                    type: string
+                    example: This is a sample MCQ quiz with basic math questions.
+                  week_id:
+                    type: integer
+                    example: 1
+                  questions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        text:
+                          type: string
+                          example: What is 2 + 2?
+                        options:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              text:
+                                type: string
+                                example: 4
+                        correct_option:
+                          type: string
+                          example: 4
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Assignment not found"
+  
+    put:
+      tags:
+        - Assignment
+      summary: Update an MCQ assignment
+      description: Updates an existing MCQ assignment (Admin only).
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: assignment_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Updated MCQ Assignment 1
+                description:
+                  type: string
+                  example: Updated basic math quiz
+      responses:
+        '200':
+          description: MCQ assignment updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 123
+                  title:
+                    type: string
+                    example: Updated MCQ Assignment 1
+                  description:
+                    type: string
+                    example: Updated basic math quiz
+                  week_id:
+                    type: integer
+                    example: 1
+                  questions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        text:
+                          type: string
+                          example: What is 2 + 2?
+                        options:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              text:
+                                type: string
+                                example: 4
+                        correct_option:
+                          type: string
+                          example: 4
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Assignment not found"
+  
+    delete:
+      tags:
+        - Assignment
+      summary: Delete an MCQ assignment
+      description: Deletes an MCQ assignment (Admin only).
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: assignment_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Deleted the assignment
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Assignment deleted"
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Assignment not found"
+  
+  /assignment/programming:
+    get:
+      tags:
+        - Assignment
+      summary: Get all programming assignments
+      description: Retrieves all programming assignments
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: List of programming assignments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 123
+                    title:
+                      type: string
+                      example: Programming Assignment 1
+                    description:
+                      type: string
+                      example: Write a program to add two numbers.
+                    week_id:
+                      type: integer
+                      example: 1
+                    test_cases:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                           input:
+                             type: string
+                             example: "2 3"
+                           expected_output:
+                             type: string
+                             example: "5"
+  
+    post:
+      tags:
+        - Assignment
+      summary: Create a new programming assignment
+      description: Creates a new programming assignment (Admin only).
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+           schema:
+             type: object
+             properties:
+               title:
+                 type: string
+                 example: Programming Assignment 1
+               description:
+                 type: string
+                 example: Write a program to add two numbers.
+               week_id:
+                 type: integer
+                 example: 1
+               test_cases:
+                 type: array
+                 items:
+                   type: object
+                   properties:
+                      input:
+                        type: string
+                        example: "2 3"
+                      expected_output:
+                        type: string
+                        example: "5"
+      responses:
+        '201':
+          description: Programming assignment created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 123
+                  title:
+                    type: string
+                    example: Programming Assignment 1
+                  description:
+                    type: string
+                    example: Write a program to add two numbers.
+                  week_id:
+                    type: integer
+                    example: 1
+                  test_cases:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                         input:
+                           type: string
+                           example: "2 3"
+                         expected_output:
+                           type: string
+                           example: "5"
+  
+  /assignment/programming/{assignment_id}:
+    get:
+      tags:
+        - Assignment
+      summary: Get a specific programming assignment
+      description: Retrieves a specific programming assignment.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: assignment_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Programming assignment details retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 123
+                  title:
+                    type: string
+                    example: Programming Assignment 1
+                  description:
+                    type: string
+                    example: Write a program to add two numbers.
+                  week_id:
+                    type: integer
+                    example: 1
+                  test_cases:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                         input:
+                           type: string
+                           example: "2 3"
+                         expected_output:
+                           type: string
+                           example: "5"
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Assignment not found"
+    put:
+      tags:
+        - Assignment
+      summary: Update a programming assignment
+      description: Updates an existing programming assignment (Admin only).
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: assignment_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Updated Programming Assignment 1
+                description:
+                  type: string
+                  example: Updated Write a program to add two numbers.
+      responses:
+        '200':
+          description: Programming assignment updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 123
+                  title:
+                    type: string
+                    example: Updated Programming Assignment 1
+                  description:
+                    type: string
+                    example: Updated Write a program to add two numbers.
+                  week_id:
+                    type: integer
+                    example: 1
+                  test_cases:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                         input:
+                           type: string
+                           example: "2 3"
+                         expected_output:
+                           type: string
+                           example: "5"
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Assignment not found"
+  
+
+    delete:
+      tags:
+        - Assignment
+      summary: Delete a programming assignment
+      description: Deletes a programming assignment (Admin only).
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: assignment_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Programming assignment deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Assignment deleted"
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Assignment not found"
+
+
+  /lecture/create:
+    post:
+      tags:
+        - Lecture
+      summary: Create a new lecture
+      description: Allows an admin to create a new lecture entry.
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Introduction to AI"
+                week_id:
+                  type: integer
+                  example: 4
+                link:
+                  type: string
+                  format: uri
+                  example: "https://youtu.be/81BaOIrfvJA"
+      responses:
+        '201':
+          description: Lecture created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "lecture created successfully"
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: "Introduction to AI"
+                  week_id:
+                    type: integer
+                    example: 4
+                  link:
+                    type: string
+                    format: uri
+                    example: "https://youtu.be/81BaOIrfvJA"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "validation error"
+  
+  /lecture/{id}:
+    get:
+      tags:
+        - Lecture
+      summary: Get a lecture by ID
+      description: Retrieves details of a specific lecture by its ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: The ID of the lecture to retrieve
+      responses:
+        '200':
+          description: Lecture retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: "Introduction to AI"
+                  week_id:
+                    type: integer
+                    example: 4
+                  link:
+                    type: string
+                    format: uri
+                    example: "https://youtu.be/81BaOIrfvJA"
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "lecture not found"
+
+    put:
+      tags:
+        - Lecture
+      summary: Update a lecture by ID
+      description: Allows an admin to update an existing lecture.
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: The ID of the lecture to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Introduction to ML"
+                week_id:
+                  type: integer
+                  example: 4
+                link:
+                  type: string
+                  format: uri
+                  example: "https://youtu.be/45CbOIrfvGI"
+      responses:
+        '201':
+          description: Lecture updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "lecture updated successfully"
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: "Introduction to ML"
+                  week_id:
+                    type: integer
+                    example: 4
+                  link:
+                    type: string
+                    format: uri
+                    example: "https://youtu.be/45CbOIrfvGI"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "validation error"
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "lecture not found"
+
+    delete:
+      tags:
+        - Lecture
+      summary: Delete a lecture by ID
+      description: Allows an admin to delete an existing lecture.
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: The ID of the lecture to delete
+      responses:
+        '200':
+          description: Lecture deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: lecture deleted successfully
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "lecture not found"
