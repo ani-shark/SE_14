@@ -67,13 +67,14 @@ def create_app():
             add_programming()
             add_mcq()
     
-    from ai_agent.api import assignment, auth, course, user, week,lecture
+    from ai_agent.api import assignment, auth, course, user, week,lecture, llm_agent
     app.register_blueprint(auth.auth_bp, url_prefix='/auth')
     app.register_blueprint(course.course_bp, url_prefix='/course')
     app.register_blueprint(week.week_bp, url_prefix='/week')
     app.register_blueprint(user.user_bp, url_prefix='/user')
     app.register_blueprint(assignment.assignment_bp, url_prefix='/assignment')
-    app.register_blueprint(lecture.lecture_bp, url_prefix='/lecture') 
+    app.register_blueprint(lecture.lecture_bp, url_prefix='/lecture')
+    app.register_blueprint(llm_agent.llm_bp, url_prefix='/llm') 
 
     setup_migrations(app)
     return app
