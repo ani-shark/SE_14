@@ -67,8 +67,11 @@ def query_deepseek(prompt: str, course_name: str) -> dict:
         return error_response(generic_error)
 
 if __name__ == "__main__":
+    """
     result = query_deepseek(
         "Explain p-values in hypothesis testing",
         "Statistics_2"
     )
+    """
+    result = "Dummy Result"
     print(result)
