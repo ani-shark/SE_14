@@ -36,4 +36,4 @@ export FLASK_APP=app.py
 flask run
 ```
 
-
+As part of the development process,  Some API's functionality and code may change before submission of next milestone. Few API's may be added as development proceeds.
