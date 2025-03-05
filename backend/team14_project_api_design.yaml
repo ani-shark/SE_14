@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
   title: Software Engineering Project API
-  description: API documentation for AI Agent. Submitted by Team 14 in Jan 2025 term.
-  version: 1.0.0
+  description: API documentation for the project "AI Agent for Academic Guidance". Submitted by Team 14 in Jan 2025 term.
+  version: 1.2.5
 servers:
   - url: http://127.0.0.1:5000/
 
@@ -179,6 +179,8 @@ tags:
     description: Endpoints for Assignment APIs.
   - name: Lecture
     description: Endpoints for Lecture APIs.
+  - name: LLM
+    description: Endpoints for LLM APIs.
 
 paths:
 
@@ -1887,3 +1889,41 @@ paths:
                   error:
                     type: string
                     example: "lecture not found"
+                    
+  /llm/query:
+    post:
+      summary: Query the LLM model
+      tags:
+        - LLM
+      requestBody:
+        description: Request payload for querying the LLM model
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: string
+                  description: The query to send to the LLM model
+              required:
+                - query
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  response:
+                    type: string
+                    example: "This is a placeholder LLM response"
+                  sources:
+                    type: array
+                    items:
+                      type: string
+                    example: ["course_materials/dummy.pdf"]
