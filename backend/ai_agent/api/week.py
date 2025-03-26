@@ -94,3 +94,18 @@ week_api = WeekAPI.as_view('week_api')
 
 week_bp.add_url_rule('/create', view_func=week_api, methods=['POST'])
 week_bp.add_url_rule('/<int:id>', view_func=week_api, methods=['GET','PUT', 'DELETE'])
+
+@week_bp.route('/all', methods=['GET'])
+@jwt_required()
+def get_weeks():
+    course_id = request.args.get("course_id")
+
+    if not course_id:
+        return jsonify(error="Missing course_id"), 400
+
+    weeks = Week.query.filter_by(course_id=course_id).all()
+
+    if not weeks:
+        return jsonify(error="No weeks found for this course"), 404
+
+    return jsonify([week.to_dict() for week in weeks]), 200

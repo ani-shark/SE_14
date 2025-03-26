@@ -11,13 +11,11 @@
         <div class="sign-in-form-box">
             <div class="sign-in">
                 <h2>Sign In</h2>
-                <p>
-                    Sign-in using the Google account you registered with to access your course dashboard.
-                </p>
-                <button @click="this.$router.push('/DashBoard')">Sign in with Google</button>
+                <p>Enter your email to log in.</p>
+                <input v-model="email" type="email" placeholder="Enter your email" required />
+                <button @click="signInUser">Sign In</button>
                 <span style="margin-top: 1rem;">
-                    Not registered?
-                    <router-link to="/Register" style="color: aqua">Register now</router-link>
+                    Not registered? <router-link to="/Register" style="color: aqua">Register now</router-link>
                 </span>
             </div>
         </div>
@@ -25,10 +23,37 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { ref } from "vue";  
+import { useRouter } from "vue-router";
+import { signIn } from "@/api/auth"; 
 
 export default {
-    methods: {
+    setup() {
+        const router = useRouter();
+        const email = ref(""); 
+
+        const signInUser = async () => {
+            try {
+                const response = await signIn(email.value); 
+                console.log("API Response:", response);
+
+                if (response.role === "admin") {
+                    console.log("Redirecting to Admin Dashboard");
+                    router.push("/Admin"); 
+                } else if (response.role === "student") {
+                    console.log("Redirecting to Student Dashboard");
+                    router.push("/Dashboard"); 
+                } else {
+                    console.error("Invalid role:", response.role);
+                    alert("Invalid login. Please try again.");
+                }
+            } catch (error) {
+                console.error("Login error:", error);
+                alert("Invalid login. Please try again.");
+            }
+        };
+
+        return { email, signInUser };
     },
 };
 </script>
