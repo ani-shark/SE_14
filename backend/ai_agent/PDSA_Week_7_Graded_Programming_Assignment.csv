@@ -1,0 +1,4 @@
+question,sample_input,sample_output
+"For the given class, AVLTree, write a method insert(self,v) to create a height-balanced tree after insertion of the element v.","[1,2,3,4,5,6,7] #order of insertion","[1, 2, 3, 4, 5, 6, 7] #inorder traversal
+[4, 2, 1, 3, 6, 5, 7] #preorder traversal
+[1, 3, 2, 5, 7, 6, 4] #postorder traversal"

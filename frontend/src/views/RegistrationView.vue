@@ -12,30 +12,34 @@
       <div class="register">
         <h2>Registration Form</h2>
         <form @submit.prevent="register">
+          <label for="name">Name:</label>
+          <input type="text" id="name" v-model="name" required placeholder="Enter your full name" />
           <label for="email">Email:</label>
           <input type="email" id="email" v-model="email" required placeholder="Enter your email" />
-
-          <label for="courses">Course List:</label>
-          <select id="courses" multiple @select="addCourses()">
-            <option value="Math">Math</option>
-            <option value="Science">Science</option>
-            <option value="History">History</option>
-            <option value="Computer Science">Computer Science</option>
-            <option value="Art">Art</option>
+          <label for="courses">Available Courses:</label>
+          <select id="courses" ref="coursesSelect" multiple>
+            <option value="1">PDSA</option>
+            <option value="2">BDM</option>
+            <option value="3">English II</option>
+            <option value="4">MLF</option>
           </select>
 
-          <button type="button" @click="addCourses">Add</button>
+          <button type="button" @click="addCourses">Add Selected Courses</button>
+          
           <div id="selectedCoursesPanel">
-            <div v-for="course in selectedCourses" :key="course" class="selected-course">
-              {{ course }}
+            <div v-for="course in selectedCourses" :key="course.id" class="selected-course">
+              {{ course.name }}
               <a href="#" @click.prevent="removeCourse(course)">
                 <i class="fa fa-times" aria-hidden="true"></i>
               </a>
             </div>
           </div>
 
-          <button type="submit">Register</button>
+          <button type="submit" :disabled="isSubmitting">
+            {{ isSubmitting ? 'Registering...' : 'Complete Registration' }}
+          </button>
         </form>
+        <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
         <span style="margin-top: 1rem;">
           Already enrolled? <router-link to="/SignIn" style="color: aqua">Sign in now</router-link>
         </span>
@@ -45,39 +49,62 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   data() {
     return {
+      name: "",
       email: "",
-      selectedCourses: []
+      selectedCourses: [],
+      isSubmitting: false,
+      errorMessage: ""
     };
   },
   methods: {
     addCourses() {
-      const coursesSelect = document.getElementById("courses");
+      const coursesSelect = this.$refs.coursesSelect;
       const selectedOptions = Array.from(coursesSelect.selectedOptions);
-      const selectedValues = selectedOptions.map(option => option.value);
-      selectedValues.forEach(course => {
-        if (!this.selectedCourses.includes(course)) {
-          this.selectedCourses.push(course);
+      
+      selectedOptions.forEach(option => {
+        const existing = this.selectedCourses.find(c => c.id === option.value);
+        if (!existing) {
+          this.selectedCourses.push({
+            id: option.value,
+            name: option.text
+          });
         }
       });
 
+      coursesSelect.selectedIndex = -1;
     },
     removeCourse(course) {
-      const index = this.selectedCourses.indexOf(course);
-      if (index > -1) {
-        this.selectedCourses.splice(index, 1);
-      }
+      this.selectedCourses = this.selectedCourses.filter(c => c.id !== course.id);
     },
-    register() {
-      const userData = {
-        email: this.email,
-        selectedCourses: this.selectedCourses,
-      };
-      console.log(userData);
-      this.$router.push("/SignIn");
+    async register() {
+      this.isSubmitting = true;
+      this.errorMessage = "";
+
+      try {
+        const payload = {
+          email: this.email,
+          name: this.name,
+          role: "student",
+          register_courses: this.selectedCourses.map(c => [c.id, c.name])
+        };
+
+        const response = await axios.post('http://127.0.0.1:5000/user/register', payload);
+        
+        if (response.status === 201) {
+          this.$router.push("/SignIn");
+        }
+      } catch (error) {
+        console.error('Registration error:', error);
+        this.errorMessage = error.response?.data?.error || 
+          "Registration failed. Please check your details and try again.";
+      } finally {
+        this.isSubmitting = false;
+      }
     }
   }
 };

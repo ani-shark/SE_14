@@ -27,7 +27,7 @@ class UserAPI(MethodView):
             user = User(
                 email=data.get('email'),
                 name=data.get('name'),
-                role=RoleEnum.STUDENT
+                role=data.get('role', RoleEnum.STUDENT)
             )
             db.session.add(user)
             db.session.commit()

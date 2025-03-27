@@ -1,0 +1,325 @@
+course,week,lecture
+PDSA,Week 10,10.1 String Matching
+PDSA,Week 10,10.2 String Matching-Boyer-Moore Algorithm
+PDSA,Week 10,10.3 String Matching-Rabin-Karp Algorithm
+PDSA,Week 10,10.4 String Matching Using Automata
+PDSA,Week 10,10.5 String Matching-Knuth-Morris-Pratt Algorithm
+PDSA,Week 10,10.6 String Matching-Tries
+PDSA,Week 10,10.7 String Matching-Regular Expresssions
+PDSA,Week 11,11.1 Linear Programming
+PDSA,Week 11,11.2 Linear Programming-Production Planning
+PDSA,Week 11,11.3 Linear Programming-Bandwidth Allocation
+PDSA,Week 11,11.4 Network Flows
+PDSA,Week 11,11.5 Reductions
+PDSA,Week 11,11.6 Intractability-Checking Algorithms
+PDSA,Week 11,11.7 Intractability-P and NP
+PDSA,Week 1,1.1 Introduction to Jupyter notebooks and Google Colab
+PDSA,Week 1,1.2 Implementation of Python codes (Part 1)
+PDSA,Week 1,1.3 Python recap - I
+PDSA,Week 1,1.4 Python recap - II
+PDSA,Week 1,1.6 Exception handling
+PDSA,Week 1,1.5 Python recap - III
+PDSA,Week 1,1.7 Classes and Objects
+PDSA,Week 1,1.8 Implementation of Python codes (Part 2)
+PDSA,Week 1,1.9 Timing our code
+PDSA,Week 1,1.10 Implementation of Python codes (Part 3)
+PDSA,Week 1,1.11 Why efficiency matters
+PDSA,Week 1,1.12 Implementation of Python codes (Part 4)
+PDSA,Week 9,9.1 Dynamic Programming
+PDSA,Week 9,9.2 Memoization
+PDSA,Week 9,9.3 Grid Paths
+PDSA,Week 9,9.4 Common Subwords and Subsequences
+PDSA,Week 9,9.5 Edit Distance
+PDSA,Week 9,9.6 Matrix Multiplication
+PDSA,Week 4,4.1 Introduction to graphs
+PDSA,Week 4,4.2 Representing Graphs
+PDSA,Week 4,4.3 Breadth First Search (BFS)
+PDSA,Week 4,4.4 Depth First Search (DFS)
+PDSA,Week 4,4.5 Applications of BFS and DFS
+PDSA,Week 4,4.6 Introduction to Directed Acyclic Graph (DAG)
+PDSA,Week 4,4.7 Topological Sorting
+PDSA,Week 4,4.8 Longest Path in DAGs
+PDSA,Week 8,8.1 Divide and Conquer-Counting inversions
+PDSA,Week 8,8.2 Divide and Conquer-Closest Pair of Points
+PDSA,Week 8,8.3 Divide and Conquer-Integer Multiplication
+PDSA,Week 8,8.4 Divide and Conquer-Recursion Trees
+PDSA,Week 8,8.5 Divide and Conquer-Quick Select
+PDSA,Week 8,8.6 Implementation of Quick select and Fast select algorithms
+PDSA,Week 3,3.1 Quicksort
+PDSA,Week 3,3.2 Analysis of Quicksort
+PDSA,Week 3,3.3 Implementation of Quicksort algorithm
+PDSA,Week 3,3.4 Concluding remarks on sorting algorithms
+PDSA,Week 3,3.5 Difference between Lists and Arrays (Theory)
+PDSA,Week 3,3.6 Designing a Flexible List and Operations on the same
+PDSA,Week 3,3.7 Implementation of Lists in Python
+PDSA,Week 3,3.8 Implementation of Dictionaries in Python
+PDSA,Week 3,3.9 Difference between Lists and Arrays (Implementation)
+PDSA,Week 6,6.1 Union-Find Data Structure
+PDSA,Week 6,6.2 Priority Queues
+PDSA,Week 6,6.3 Heaps
+PDSA,Week 6,6.4 Using Heaps in Algorithms
+PDSA,Week 6,6.5 Search Trees
+PDSA,Week 5,5.1 Shortest Paths in Weighted Graphs
+PDSA,Week 5,5.2 Single Source Shortest Paths (Dijkstra_s algorithm)
+PDSA,Week 5,5.3 Single Source Shortest Paths with Negative Weights (Bellman-Ford Algorithm)
+PDSA,Week 5,5.4 All Pairs Shortest Paths (Floyd-Warshall algorithm)
+PDSA,Week 5,5.5 Minimum Cost Spanning Trees
+PDSA,Week 5,5.6 Minimum Cost Spanning Trees (Prim_s Algorithm)
+PDSA,Week 5,5.7 Minimum Cost Spanning Trees (Kruskal_s Algorithm)
+PDSA,Week 2,2.1 Analysis of Algorithms
+PDSA,Week 2,2.2 Comparing Orders of Magnitude
+PDSA,Week 2,2.3 Calculating Complexity
+PDSA,Week 2,2.4 Searching in a List
+PDSA,Week 2,2.5 Selection Sort
+PDSA,Week 2,2.6 Insertion Sort
+PDSA,Week 2,2.7 Merge Sort
+PDSA,Week 2,2.8 Analysis of Merge Sort
+PDSA,Week 2,2.9 Implementation of Searching and Sorting algorithms
+PDSA,Week 7,7.1 Balanced Search Trees
+PDSA,Week 7,7.2 Greedy Algorithms-Interval Scheduling
+PDSA,Week 7,7.3 Greedy Algorithms-Minimizing Lateness
+PDSA,Week 7,7.4 Greedy Algorithms-Huffman Coding
+BDM,Week 6,6.9 Key learnings from the Case
+BDM,Week 6,6.7 Days of sales of inventory presentation
+BDM,Week 6,6.8 Presentation of Ledger
+BDM,Week 6,6.6 Average days of inventory
+BDM,Week 6,6.3 Sales trend presentation
+BDM,Week 6,6.4 Days of inventory
+BDM,Week 6,6.2 Scatter chart presentation
+BDM,Week 6,6.1 Sales analysis presentation
+BDM,Week 6,6.5 Ledger
+BDM,Week 6,6.10 VLOOKUP and Pivot Table
+BDM,Week 7,7.2 ACE Gears case Introduction
+BDM,Week 7,7.10 Region wise revenue and sales agent planning presentation
+BDM,Week 7,7.6 Revenue analysis presentation
+BDM,Week 7,7.3 Background Context to the Case
+BDM,Week 7,7.1 Introduction to the manufacturing sector
+BDM,Week 7,7.8 Product portfolio presentation
+BDM,Week 7,7.5 Revenue trend working
+BDM,Week 7,"7.4 Introduction to the dataset - sales, production and inventory"
+BDM,Week 7,7.9 Region Wise Revenue Working
+BDM,Week 7,7.7 Portfolio management working
+BDM,Week 11,11.1 AB Testing Introduction
+BDM,Week 11,11.4 What is credit risk analysis
+BDM,Week 11,11.6 Credit risk analysis review of data
+BDM,Week 11,11.5 Explanation of the credit risk dataset
+BDM,Week 11,11.2 AB Testing Working
+BDM,Week 11,11.3 AB Testing Presentation
+BDM,Week 11,11.7 Credit risk analysis monthly trends
+BDM,Week 11,11.8 Credit risk analysis presentation
+BDM,Week 5,5.1 Introduction to e-commerce
+BDM,Week 5,5.6 Pareto Analysis II
+BDM,Week 5,5.2 Introduction to the case study
+BDM,Week 5,5.7 Revenue trend
+BDM,Week 5,5.5 Pareto Analysis I
+BDM,Week 5,5.3 E-commerce Data
+BDM,Week 5,5.4 Review of data and questions_Verified
+BDM,Week 5,5.6 Scatter plot of sales and revenue
+BDM,Week 1,1.5 Survey Data
+BDM,Week 1,1.1 Introduction
+BDM,Week 1,1.4 Consumption baskets
+BDM,Week 1,"1.3 Production, consumption and exchange"
+BDM,Week 1,1.2 Micro _ Macro Economics The role of data
+BDM,Week 1,1.6 Utility and prices- An introduction
+BDM,Week 1,1.7 Other Sources of Survey data
+BDM,Week 4,4.5 Cement industry
+BDM,Week 4,4.8 IT industry and Summary
+BDM,Week 4,4.6 FMCG industry
+BDM,Week 4,4.1 Industry definition
+BDM,Week 4,4.3 Industry market structure and Concentration indices
+BDM,Week 4,4.4 Competitive positioning in an industry - Porter's five forces
+BDM,Week 4,4.7 Textile industry
+BDM,Week 4,"4.2 Data used for classification - NIC, IIP and PMI"
+BDM,Week 3,3.6 FMCG industry - Nestle
+BDM,Week 3,3.1 Objectives of pricing strategies
+BDM,Week 3,3.5 Textile industry - Page Industries
+BDM,Week 3,3.4 Introduction and Cement Industry (UltraTech Cement)
+BDM,Week 3,3.7 IT industry - TCS and Summary
+BDM,Week 3,3.2 Types of pricing strategies
+BDM,Week 3,3.3 Analysis of firm performance - Key ratios
+BDM,Week 12,12.1 How businesses operate
+BDM,Week 12,12.2 How businesses are managed
+BDM,Week 12,12.3 Processing data from business processes using spreadsheets
+BDM,Week 2,2.2 Demand and supply curves
+BDM,Week 2,2.6 Make vs. Buy
+BDM,Week 2,2.5 Cost Curves
+BDM,Week 2,"2.1 Utility Cardinal vs. Ordinal, Indifference curves"
+BDM,Week 2,2.4 Production Cost
+BDM,Week 2,2.3 Changes in demand and elasticity
+BDM,Week 2,2.7 Production decision
+BDM,Week 10,10.1 Introduction to Finance Industry and Fintech
+BDM,Week 10,10.5 Paybuddy case The main players and the dataset for credit marketing
+BDM,Week 10,10.2 Introduction to payments industry and money flow
+BDM,Week 10,10.4 Nudge economics
+BDM,Week 10,10.3 Paybuddy case credit product introduction
+BDM,Week 10,10.6 Descriptive statistics working
+BDM,Week 10,10.7 Segment analysis working
+BDM,Week 10,10.8 Presentation of factors that can be used for nudge
+BDM,Week 9,9.11 Combining measurements into a composite score and ranking
+BDM,Week 9,9.9 Selection criteria
+BDM,Week 9,9.13 Presentation of results and analysis
+BDM,Week 9,"9.2 Introduction to the Tech Enterprises, and their immediate crisis"
+BDM,Week 9,9.1 Introduction to HR as a function
+BDM,Week 9,9.6 Caselet 2 introduction Job Description
+BDM,Week 9,9.3 Internal sourcing
+BDM,Week 9,9.5 Ranking of internal candidates
+BDM,Week 9,9.7 Sourcing channels and their analysis
+BDM,Week 9,9.14 Summary Skills availability _ role of HR
+BDM,Week 9,9.12 Recruitment process and onboarding
+BDM,Week 9,9.8 Introduction to dataset and gender diversity
+BDM,Week 9,9.4 Review of data
+BDM,Week 9,9.10 Measuring the criteria by channel
+BDM,Week 8,8.5 Unit level profitability working.
+BDM,Week 8,8.6 Scrap costs and margin analysis presentation
+BDM,Week 8,8.1 Production scheduling data - plan vs actual
+BDM,Week 8,8.4 Unit level profitability and material re-ordering data
+BDM,Week 8,8.3 OEE discussion
+BDM,Week 8,8.8 Safety stock and re-order working
+BDM,Week 8,8.2 Scrap analysis working
+BDM,Week 8,8.7 Safety stock and re-order concept review
+English II,Week 11,11.1 Contrast Words
+English II,Week 11,11.2 Degree Adverbs
+English II,Week 11,11.3 Adverbs- Comment Viewpoint and Focus
+English II,Week 11,11.4 Connecting Ideas Between and Within Sentences
+English II,Week 11,11.5 Innovation in Vocabulary
+English II,Week 11,11.6 Advanced Vocabulary
+English II,Week 1,1.1 Speaking- Gandhi on Real India
+English II,Week 1,1.2 Speaking- Robert Kennedy on Need for Compassion
+English II,Week 1,1.3 Rhythm: A Psalm of Life
+English II,Week 1,1.4 Long Vowels
+English II,Week 1,1.5 Language Use
+English II,Week 1,1.6 Making a Presentation
+English II,Week 10,10.1 What Makes a Sentence in English?
+English II,Week 10,10.2 Tenses and Aspects in English
+English II,Week 10,10.3 Intonation in English
+English II,Week 10,10.4 Passives in English
+English II,Week 10,10.5 Relative Clauses in English
+English II,Week 10,10.6 Participles in English
+English II,Week 10,10.7 Agreement in English Sentences (Subject and Verb in Sentences)
+English II,Week 6,6.1 Question Tags in English Sentences
+English II,Week 6,6.2 Questions in English (Interrogative Sentences)
+English II,Week 6,6.3 Questions in English Complex Sentences (Embedded Sentences)
+English II,Week 6,6.4 Whether and if clauses in English Sentences
+English II,Week 6,6.5 that-Clause in English Sentences (Complex  Embedded Sentences)
+English II,Week 6,6.6 Structure and Functions of Passives in English
+English II,Week 6,6.7 Some Important Concepts in Adjectives
+English II,Week 2,2.1 Clause Analysis - I
+English II,Week 2,2.2 Clause Analysis - II
+English II,Week 2,2.3 Clause Analysis- III
+English II,Week 2,2.4 Required and Optional Elements in English Sentences (Complements and Adjuncts)
+English II,Week 2,2.5 Punctuations - Pauses -I
+English II,Week 2,2.6 Punctuations - Pauses -II
+English II,Week 3,3.1 Adverbs
+English II,Week 3,3.2 Adverbs: A quick Review
+English II,Week 3,3.3 Learning Softening (Knowing Vs. Using)
+English II,Week 3,3.4 Tense Aspect Mood
+English II,Week 3,3.5 English Vocabulary- 01
+English II,Week 3,3.6 English Vocabulary- 02
+English II,Week 4,4.1 Writing to Argue - I
+English II,Week 4,4.2 Writing to Argue - II
+English II,Week 4,4.3 Lab Manual
+English II,Week 4,4.4 Writing to Influence
+English II,Week 4,4.5 Essays on Reflection- I
+English II,Week 4,4.6 Essays on Reflection- II
+English II,Week 7,7.1 Making a Radio Report
+English II,Week 7,7.2 Presenting Numbers : Education Of Girls In India
+English II,Week 7,7.3 Presenting Numbers- 2
+English II,Week 7,7.4 At an Interview
+English II,Week 7,7.5 Group Discussion 1
+English II,Week 7,7.6 Group Discussion 2
+English II,Week 12,12.1 Pragmatic Competence Vs Communicative Confidence
+English II,Week 12,12.2 Negative Sensitive Elements in English
+English II,Week 12,12.3 Metaphors
+English II,Week 12,12.4 Writing an Essay or a Research Report
+English II,Week 12,12.5 Barriers to Communication
+English II,Week 12,12.6 Context of Communication- The Speaking Model
+English II,Week 12,12.7 Interview Skill - 1
+English II,Week 12,12.8 Writing
+English II,Week 5,5.6 Could vs Would
+English II,Week 5,5.1 Modal Verbs- A Quick Review
+English II,Week 5,5.2 Mood and Modal Verbs
+English II,Week 5,5.3 Functions of Modal Verbs
+English II,Week 5,5.4 Modal Verbs: Can or Could
+English II,Week 5,5.5 Modals: Will Would
+English II,Week 8,8.1 Writing SOP-1
+English II,Week 8,8.2 Writing SOP-2
+English II,Week 8,8.4 Precision writing  2
+English II,Week 8,8.3 Precision writing  1
+English II,Week 8,8.5 Writing Lab Report
+English II,Week 9,9.1 Developing Communication Skills
+English II,Week 9,9.2 Developing Speaking Skills in English
+English II,Week 9,9.3 Developing Effective Listening
+English II,Week 9,9.4 Developing Reading Skills
+English II,Week 9,9.5 Developing Writing Skills
+English II,Week 9,9.6 Write Well
+MLF,Week 7,7.1 Pillars of machine learning
+MLF,Week 7,7.2 Introduction to Optimization
+MLF,Week 7,7.3 Solving an unconstrained optimization problem (Part 1)
+MLF,Week 7,7.4 Solving an unconstrained optimization problem (Part 2)
+MLF,Week 7,7.5 Basic algorithm for unconstrained optimization_ Gradient Descent
+MLF,Week 7,7.6 Gradient Descent and Taylor Series
+MLF,Week 7,7.7 Gradient Descent for Multivariate Functions
+MLF,Week 7,7.8 Taylor Series in Higher Dimensions
+MLF,Week 1,1.1 What is Machine Learrning
+MLF,Week 1,"1.2 Data, Models and ML Task"
+MLF,Week 1,1.3 Supervised Learning - Regression
+MLF,Week 1,1.4 Supervised Learning - Classification
+MLF,Week 1,1.5 Unsupervised Learning Dimensionality Reduction
+MLF,Week 1,1.6 Unsupervised Learning Density Estimation
+MLF,Week 6,6.1 Positive Defnitiness
+MLF,Week 6,6.2 Positive Definite Matrices
+MLF,Week 6,6.3 Principal Component Analysis
+MLF,Week 6,6.4 Principal Component Analysis (Contd.)
+MLF,Week 6,6.5 PCA as maximizing variance
+MLF,Week 6,6.6 PCA in higher dimensions
+MLF,Week 2,2.1 Sets and Functions
+MLF,Week 2,2.2 Univariate Calculus_ Derivatives and Linear Approximations
+MLF,Week 2,2.3 Multivariate Calculus_ Lines and planes in higher dimensional space
+MLF,Week 2,2.4 Multivariate Calculus Linear approximation and applications
+MLF,Week 4,4.1 Linear and Polynomial Regression
+MLF,Week 4,4.2 Eigenvalues and Eigenvectors
+MLF,Week 4,4.3 Diagonalization of a matrix1
+MLF,Week 4,4.4 Solving Fibonacci Sequence using diagonalization
+MLF,Week 4,4.5 Orthogonally diagonalizable matrices
+MLF,Week 12,12.1 Bivarate and multivariate normal
+MLF,Week 12,12.2 Estimation of parameters using ML
+MLF,Week 12,12.3 Gaussian Mixture Models and Expectation Maximisation
+MLF,Week 12,"12.4 Laws of large numbers Markov, Chebyshev, Hoeffding, Central limit"
+MLF,Week 12,12.5 Examples on Continuous random Variables
+MLF,Week 5,5.1 Complex Matrices
+MLF,Week 5,5.2 Hermitian Matrices
+MLF,Week 5,5.3 Unitary Matrices
+MLF,Week 5,5.4 Diagonalization of Hermitian Matrices part 1
+MLF,Week 5,5.5 Diagonalization of Hermitian Matrices part 2
+MLF,Week 5,5.6 Singular Value Decomposition
+MLF,Week 5,5.7 Example of SVD
+MLF,Week 10,10.1 Probability space
+MLF,Week 10,10.2 Conditioning
+MLF,Week 10,10.3 Random variables
+MLF,Week 10,10.4 Expectation - definition and properties
+MLF,Week 10,10.5 Multiple random variables
+MLF,Week 10,"10.6 Bernoulli, Binomial, Poisson and Geometric random variables"
+MLF,Week 3,3.1 Four Fundamental Subspaces
+MLF,Week 3,3.2 Orthogonal Vectors and Subspaces
+MLF,Week 3,3.3 Projections
+MLF,Week 3,3.4 Least Squares and Projections onto a Subspace
+MLF,Week 3,3.5 Example of Least Squares
+MLF,Week 11,11.1 Continuous Random Variables
+MLF,Week 11,11.2 Conditional
+MLF,Week 11,11.3 Expectation
+MLF,Week 11,11.4 Multiple random variables
+MLF,Week 11,11.5 Independent random variables
+MLF,Week 11,11.6 Transformed random variables
+MLF,Week 11,"11.7 Uniform, Exponential, Normal"
+MLF,Week 8,8.1 Constrained Optimization (Part -1)
+MLF,Week 8,8.2 Constrained Optimization (Part -2)
+MLF,Week 8,8.3 Method of Lagrange Multiplier  Projected Gradient Descent
+MLF,Week 8,8.4 Introduction to Convexity
+MLF,Week 8,8.5 Properties of Convex Sets
+MLF,Week 8,8.6 Convex Functions
+MLF,Week 8,8.7 Properties of Convex Functions
+MLF,Week 9,9.1 Properties of Convex Functions - 1
+MLF,Week 9,9.2 Applications of Optimization in Machine Learning
+MLF,Week 9,9.3 Revisiting Constrained Optimization
+MLF,Week 9,"9.4 Relation between Primal and Dual Problem, KKT Conditions"
+MLF,Week 9,9.5 KKT conditions continued.
