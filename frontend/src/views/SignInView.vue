@@ -22,27 +22,41 @@
     </div>
 </template>
 
+
 <script>
-import { ref } from "vue";  
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { signIn } from "@/api/auth"; 
 
 export default {
     setup() {
         const router = useRouter();
-        const email = ref(""); 
+        const email = ref("");
 
         const signInUser = async () => {
             try {
-                const response = await signIn(email.value); 
+                const response = await signIn(email.value);
                 console.log("API Response:", response);
 
+                // ✅ Check if user ID is present in response
+                if (!response.id || !response.role) {
+                    console.error("Invalid response structure:", response);
+                    alert("Login failed. Please try again.");
+                    return;
+                }
+
+                // ✅ Store user ID, role, and email in localStorage
+                localStorage.setItem("user_id", response.id);
+                localStorage.setItem("user_role", response.role);
+                localStorage.setItem("user_email", response.email);
+
+                // ✅ Redirect based on user role
                 if (response.role === "admin") {
                     console.log("Redirecting to Admin Dashboard");
-                    router.push("/Admin"); 
+                    router.push("/Admin");
                 } else if (response.role === "student") {
                     console.log("Redirecting to Student Dashboard");
-                    router.push("/Dashboard"); 
+                    router.push("/Dashboard");
                 } else {
                     console.error("Invalid role:", response.role);
                     alert("Invalid login. Please try again.");

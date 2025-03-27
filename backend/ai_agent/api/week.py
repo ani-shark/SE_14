@@ -96,7 +96,7 @@ week_bp.add_url_rule('/create', view_func=week_api, methods=['POST'])
 week_bp.add_url_rule('/<int:id>', view_func=week_api, methods=['GET','PUT', 'DELETE'])
 
 @week_bp.route('/all', methods=['GET'])
-@jwt_required()
+#@jwt_required()
 def get_weeks():
     course_id = request.args.get("course_id")
 

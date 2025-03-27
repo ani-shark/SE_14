@@ -26,7 +26,8 @@ class AuthAPI(MethodView):
             return jsonify(error='invalid user credentials'),401
             
             
-        response = jsonify(message="sign in successful.", role=user.role.value )
+        response = jsonify(message="sign in successful.", id=user.id, email=user.email, role=user.role.value)
+
         if user.role == RoleEnum.ADMIN:
             access_token = create_access_token(identity=str(user.id),expires_delta=timedelta(minutes=35))
             refresh_token = create_refresh_token(identity=str(user.id),expires_delta=timedelta(minutes=180))  

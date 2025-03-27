@@ -42,14 +42,11 @@
 
 <script>
 import SeekNavbar from "@/components/SeekNavbar.vue";
-import { getWeeks } from '@/api/week';
-
 export default {
     name: "MyCourses",
     components:{"seek-nav":SeekNavbar},
     data() {
         return {
-            weeks: [],
             courses: [
                 { id: 1, name: "Course 1", scores: [100, 100, 100] },
                 { id: 2, name: "Course 2", scores: [100, 100, 100] },
@@ -66,18 +63,9 @@ export default {
         };
     },
     mounted() {
-        this.fetchWeeks();
         this.applyTheme();
     },
     methods: {
-
-        async fetchWeeks() {
-            try {
-                this.weeks = await getWeeks(4); // Replace with actual course_id
-            } catch (error) {
-                console.error("Error fetching weeks:", error);
-            }
-        },
         toggleTheme() {
             const body = document.body;
             body.classList.toggle("dark-mode");
