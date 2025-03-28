@@ -14,6 +14,7 @@ class UserAPI(MethodView):
     def get(self):
         user_id = get_jwt_identity()
         user = User.query.get(user_id)
+        
         if user:
             return jsonify(user.to_dict()), 200
         
@@ -105,16 +106,14 @@ class UserCoursesAPI(MethodView):
             return jsonify(error="user not enrolled in this course"), 401
             
         resp = {
-            "id": user.id,
-            "email": user.email,
-            "name": user.name,
-            "role": user.role.value,
-            "course_content": course_content,
+            "details": course_content,
             "mcq_scores": [],
             "programming_scores": []
         }
         
         for week in course_content['weeks']:
+            if week['id'] == 0:
+                continue
             for mcq in week['mcq']:
                 case = McqScores.query.filter_by(user_id=user.id, assignment_id=mcq['id']).first()
                 if case:
@@ -136,3 +135,5 @@ user_bp.add_url_rule('/get', view_func=user_api, methods=['GET'])
 user_bp.add_url_rule('/register', view_func=user_api, methods=['POST'])
 user_bp.add_url_rule('/edit', view_func=user_api, methods=['PUT'])
 user_bp.add_url_rule('/courses/<int:course_id>', view_func=usercourses_api, methods=['GET'])
+
+
