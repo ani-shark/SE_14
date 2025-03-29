@@ -3,8 +3,8 @@ from enum import Enum
 
 
 class RoleEnum(Enum):
-    STUDENT = 'student'
-    ADMIN = 'admin'
+    STUDENT = 'STUDENT'
+    ADMIN = 'ADMIN'
 
 
 class User(db.Model):
