@@ -12,6 +12,7 @@
                         <div class="text-truncate" style="width: 80%;">Lectures</div>
                     </div>
                 </div>
+
                 <div class="accordion-item" v-for="week in course.details.weeks" :key="week.id">
                     <div class="accordion-header">
                         <div class="text-truncate" style="width: 80%">{{ week.name }}</div>
@@ -76,7 +77,6 @@ import ProgAssignment from "@/components/ProgAssignment.vue";
 import LectureVideo from "@/components/LectureVideo.vue";
 import McqAssignment from "@/components/McqAssignment.vue";
 import { mapActions } from "vuex";
-import router from "@/router";
 export default {
     components: { "seek-nav": SeekNavbar, "prog-assgmt": ProgAssignment, "lectures": LectureVideo, "mcq": McqAssignment },
     data() {
@@ -100,9 +100,9 @@ export default {
     },
     methods: {
         ...mapActions(["getToken"]),
-        change_content(item) {
-            // Change the content of our main pane
-        },
+        // change_content(item) {
+        //     // Change the content of our main pane
+        // },
         toggleSidebar() {
             this.accordionVisible = !this.accordionVisible;
         },
@@ -147,23 +147,24 @@ export default {
         async fetchCourseDetails(course_id) {
             try {
                 const csrf_access_token = await this.getToken();
+                console.log(course_id)
                 console.log(csrf_access_token);
-                const response = await fetch(`http://localhost:8000/user/courses/${course_id}`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": csrf_access_token,
-                    },
-                    credentials: "include",
-                });
+                // const response = await fetch(`http://localhost:8000/user/courses/${course_id}`, {
+                //     method: "GET",
+                //     headers: {
+                //         "Content-Type": "application/json",
+                //         "X-CSRF-TOKEN": csrf_access_token,
+                //     },
+                //     credentials: "include",
+                // });
 
-                const data = await response.json();
-                if (response.ok) {
-                }
-                else {
-                    alert(data.error);
-                    this.$router.replace('/SignIn');
-                }
+                // const data = await response.json();
+                // if (response.ok) {
+                // }
+                // else {
+                //     alert(data.error);
+                //     this.$router.replace('/SignIn');
+                // }
             }
             catch (err) {
                 console.error(err);

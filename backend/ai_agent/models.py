@@ -43,6 +43,8 @@ class User(db.Model):
                 'programming_scores': []
             }
             for week in course.to_dict()['weeks']:
+                if week['id'] == 0:
+                    continue
                 for mcq in week['mcq']:
                     case = McqScores.query.filter_by(
                         user_id=self.id, assignment_id=mcq['id']).first()

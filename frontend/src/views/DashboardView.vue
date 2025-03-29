@@ -29,9 +29,6 @@
                         </li>
                     </ul>
                 </div>
-                <router-link to="/Seek" class="btn-primary">
-                    Go to Course Page <i class="fa-solid fa-arrow-right"></i>
-                </router-link>
                 <router-link :to="{
                     path: '/Seek',
                     query: { course_id: course.id, content_type: 'intro', id: 0, name: 'Course Intro' }
