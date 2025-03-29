@@ -17,7 +17,7 @@ assignment_bp = Blueprint('assignment', __name__)
 
 class McqAssignmentAPI(MethodView):
     @jwt_required()
-    def get(self, assignment_id=None):
+    def get(self, assignment_id):
         """
         Get MCQ assignment(s)
         If assignment_id is provided, return that specific assignment

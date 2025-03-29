@@ -10,8 +10,6 @@ course_bp = Blueprint('course', __name__)
 
 
 class CourseAPI(MethodView):
-    
-    @admin_required
     def get(self,id):
                 
         course = Course.query.get(id)
