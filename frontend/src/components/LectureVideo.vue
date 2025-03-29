@@ -10,8 +10,6 @@
 </template>
 
 <script>
-import { getLectures } from '@/api/lecture';
-
 export default {
     props:{ details:{
         type: Object,
@@ -23,16 +21,9 @@ export default {
         };
     },
     mounted() {
-        this.fetchLectures(1);  // We need to replace 1 with actual weekId, whoever seeing this
+        // this.fetchLectures(1);  // We need to replace 1 with actual weekId, whoever seeing this
     },
     methods: {
-        async fetchLectures(weekId) {
-            try {
-                this.lectures = await getLectures(weekId);
-            } catch (error) {
-                console.error("Error fetching lectures:", error);
-            }
-        },
         // Get AI Agent guidance for this specific Lecture
         getHelp() {
             const query = { ...this.details };

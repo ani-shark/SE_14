@@ -15,12 +15,10 @@
                     <i class="fa fa-arrow-left" aria-hidden="true"></i>
                 </router-link>
             </button>
-            <button v-else-if="type == 'admin'" title="Close Agent">
-                <router-link to="/Admin/SignIn">
-                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                </router-link>
+            <button v-else-if="type == 'admin'" title="Signout" @click="this.signOut()">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
             </button>
-            <button v-else title="Signout" @click="this.$router.push('/SignIn')">
+            <button v-else title="Signout" @click="this.signOut()">
                 <i class="fa fa-sign-out" aria-hidden="true"></i>
 
             </button>
@@ -33,6 +31,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
     props: {
         title: {
@@ -50,6 +49,7 @@ export default {
         }
     },
     methods: {
+        ...mapActions(['signOut']),
         toggleTheme() {
             const body = document.body;
             body.classList.toggle("dark-mode");

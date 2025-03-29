@@ -83,7 +83,7 @@ class Course(db.Model):
 
     def to_dict(self):
         
-        week_0 = {'id': 0, 'course_intro': [{'id':0,'content_type': 'intro', 'intro': self.intro}]}
+        week_0 = {'id': 0,'name':'Course Intro', 'course_intro': [{'id':0,'name':'Course Intro','content_type': 'intro', 'intro': self.intro}]}
         ans = {
             "id": self.id,
             "name": self.name,

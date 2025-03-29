@@ -11,9 +11,9 @@
         <div class="sign-in-form-box">
             <div class="sign-in">
                 <h2>Sign In</h2>
-                <p>Enter your email to log in.</p>
-                <input v-model="email" type="email" placeholder="Enter your email" required />
-                <button @click="signInUser">Sign In</button>
+                <div style="color: red;">{{ errorMessage }}</div>
+                <input v-model="email" type="email" placeholder="Enter your email to sign in" required />
+                <button @click="handleSignIn">Sign In</button>
                 <span style="margin-top: 1rem;">
                     Not registered? <router-link to="/Register" style="color: aqua">Register now</router-link>
                 </span>
@@ -26,48 +26,31 @@
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { signIn } from "@/api/auth"; 
-
+import { mapActions } from 'vuex';
 export default {
-    setup() {
-        const router = useRouter();
-        const email = ref("");
-
-        const signInUser = async () => {
-            try {
-                const response = await signIn(email.value);
-                console.log("API Response:", response);
-
-                // ✅ Check if user ID is present in response
-                if (!response.id || !response.role) {
-                    console.error("Invalid response structure:", response);
-                    alert("Login failed. Please try again.");
-                    return;
-                }
-
-                // ✅ Store user ID, role, and email in localStorage
-                localStorage.setItem("user_id", response.id);
-                localStorage.setItem("user_role", response.role);
-                localStorage.setItem("user_email", response.email);
-
-                // ✅ Redirect based on user role
-                if (response.role === "admin") {
-                    console.log("Redirecting to Admin Dashboard");
-                    router.push("/Admin");
-                } else if (response.role === "student") {
-                    console.log("Redirecting to Student Dashboard");
-                    router.push("/Dashboard");
-                } else {
-                    console.error("Invalid role:", response.role);
-                    alert("Invalid login. Please try again.");
-                }
-            } catch (error) {
-                console.error("Login error:", error);
-                alert("Invalid login. Please try again.");
-            }
-        };
-
-        return { email, signInUser };
-    },
+   data() {
+      return {
+         email: "",
+        errorMessage: "",
+      };
+   },
+   methods:{
+    ...mapActions(['signIn']),
+    async handleSignIn(){
+        if(this.email === ""){
+            this.errorMessage = "Please enter your email.";
+            setTimeout(() => {
+                this.errorMessage = "";
+            }, 2000);
+            return;
+        }
+        const response = await this.signIn({ email: this.email });
+        if (response !== true) {
+            this.errorMessage = response || "Sign-in failed. Please try again.";
+        } else {
+            this.$router.push("/Dashboard");
+        }
+    }
+   }
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <seek-nav type="seek portal" title="Course Name"></seek-nav>
+    <div v-if = "course!==null">
+        <seek-nav type="seek portal" :title="course.details.name"></seek-nav>
 
         <button class="accordion-toggle" id="accordion-toggle">☰</button>
 
@@ -12,13 +12,27 @@
                         <div class="text-truncate" style="width: 80%;">Lectures</div>
                     </div>
                 </div>
-                <div class="accordion-item" v-for="week in weeks" :key="week.id">
+                <div class="accordion-item" v-for="week in course.details.weeks" :key="week.id">
                     <div class="accordion-header">
                         <div class="text-truncate" style="width: 80%">{{ week.name }}</div>
                         <i class="fa-solid fa-caret-down"></i>
                     </div>
                     <div class="accordion-content">
-                        <div v-for="item in week.content" :key="week.id + '-' + item.item_id" class="content-item">
+                        <div v-for="item in week.lectures" :key="week.id + '-' + item.id" class="content-item">
+                            <div class="text-truncate" style="padding-left: 0.8em">
+                                {{ item.name }}
+                            </div>
+                            <input type="radio" name="main-content" :value="item" @change="change_content(item)"
+                                :checked="item === content" />
+                        </div>
+                        <div v-for="item in week.mcq" :key="week.id + '-' + item.id" class="content-item">
+                            <div class="text-truncate" style="padding-left: 0.8em">
+                                {{ item.name }}
+                            </div>
+                            <input type="radio" name="main-content" :value="item" @change="change_content(item)"
+                                :checked="item === content" />
+                        </div>
+                        <div v-for="item in week.programming" :key="week.id + '-' + item.id" class="content-item">
                             <div class="text-truncate" style="padding-left: 0.8em">
                                 {{ item.name }}
                             </div>
@@ -29,24 +43,30 @@
                     </div>
                 </div>
             </div>
-            <div v-if="content && content.name && content.name.includes('Programming Assgmt')" class="content">
+            <div v-if="content_type === 'programming'">
                 <prog-assgmt :details="content"></prog-assgmt>
             </div>
-            <div v-else-if="content && content.name && content.name.includes('Lecture')" class="content">
+            <div v-else-if="content_type === 'lectures'">
                 <lectures :details="content"></lectures>
             </div>
-            <div v-else-if="content && content.name && content.name.includes('Mcq')" class="content">
+            <div v-else-if="content_type === 'mcq'">
                 <mcq :details="content"></mcq>
             </div>
+            <div v-else-if="content_type === 'intro'">
+                <h6>{{ content ? content.intro : 'No content available' }}</h6>
+            </div>
             <div v-else class="content">
-                <h3>{{ content ? content.name : 'No content available' }}</h3>
+                <div class="spinner"></div>
             </div>
         </div>
 
-        <button class="ai-agent-button" @click="this.$router.push({path:'/Agent',query:{}})">
+        <button class="ai-agent-button" @click="this.$router.push({ path: '/Agent', query: {} })">
 
             <i class="fa-regular fa-message"></i>
         </button>
+    </div>
+    <div v-else style="width: 100%;display: flex;align-items: center;justify-content: center;">
+        <div class="spinner"></div>
     </div>
 </template>
 
@@ -55,37 +75,33 @@ import SeekNavbar from "@/components/SeekNavbar.vue";
 import ProgAssignment from "@/components/ProgAssignment.vue";
 import LectureVideo from "@/components/LectureVideo.vue";
 import McqAssignment from "@/components/McqAssignment.vue";
+import { mapActions } from "vuex";
+import router from "@/router";
 export default {
-    components: { "seek-nav": SeekNavbar, "prog-assgmt": ProgAssignment , "lectures":LectureVideo,"mcq":McqAssignment},
+    components: { "seek-nav": SeekNavbar, "prog-assgmt": ProgAssignment, "lectures": LectureVideo, "mcq": McqAssignment },
     data() {
         return {
             accordionVisible: false,
+            
+            // This will contain type of content we're on currently lectures,programming, mcq or intro
+            content_type: null,
+            
+            // This will have response of the request to /user/courses/<course_id> from backend
+            course: null,
+
+            // This will have the content of the current item we're on eg. lecture, mcq, programming or intro
             content: null,
-            weeks: [
-                { id: 1, name: 'About Course', content: [{ item_id: 1, id: 1, name: "Course Intro" }] },
-                {
-                    id: 1, name: "Week 1", content: [{ item_id: 1, id: 1, name: "Week 1 Lecture 1" },
-                    { item_id: 2, id: 2, name: "Week 1 Lecture 2" }, { item_id: 3, id: 1, name: 'Week 1 Mcq Assignment 1' },
-                    { item_id: 4, id: 2, name: 'Week 1 Mcq Assignment 2' }]
-                },
-                {
-                    id: 2, name: "Week 2", content: [{ item_id: 1, id: 3, name: "Week 2 Lecture 1" },
-                    { item_id: 2, id: 4, name: "Week 2 Lecture 2" }, { item_id: 3, id: 3, name: 'Week 2 Mcq Assignment 1' },
-                    { item_id: 4, id: 4, name: 'Week 2 Mcq Assignment 2' }, { item_id: 5, id: 1, name: 'Week 2 Programming Assgmt 1' },
-                    { item_id: 6, id: 2, name: 'Week 2 Programming Assgmt 2' }]
-                },
-                {
-                    id: 3, name: "Week 3", content: [{ item_id: 1, id: 5, name: "Week 3 Lecture 1" },
-                    { item_id: 2, id: 6, name: "Week 3 Lecture 2" }, { item_id: 3, id: 7, name: "Week 3 Lecture 3" },
-                    { item_id: 4, id: 8, name: "Week 3 Lecture 4" }, { item_id: 5, id: 9, name: "Week 3 Lecture 5" },
-                    { item_id: 6, id: 10, name: "Week 3 Lecture 6" }]
-                }
-            ]
+
+            // This will have the id of the current item we're on eg. lecture, mcq, programming or intro
+            id: null,
+
+            //  This is query structure for the URL /Seek?course_id=num1&content_type=string1&id=num2&name=string2
         };
     },
     methods: {
+        ...mapActions(["getToken"]),
         change_content(item) {
-            this.content = item;
+            // Change the content of our main pane
         },
         toggleSidebar() {
             this.accordionVisible = !this.accordionVisible;
@@ -107,7 +123,7 @@ export default {
                 toggleButton.style.display = "block";
                 sidebar.style.display = 'none'
                 closeButton.style.display = 'block';
-                sidebar.style['z-index']=1000;
+                sidebar.style['z-index'] = 1000;
             } else {
                 sidebar.style.height = "100%";
                 sidebar.style.position = "";
@@ -121,14 +137,63 @@ export default {
                 sidebar.style.display = 'block';
                 this.style.display = "none";
             });
-            
+
             closeButton.addEventListener("click", function () {
                 sidebar.style.display = "none";
                 toggleButton.style.display = "block";
             });
+        },
+
+        async fetchCourseDetails(course_id) {
+            try {
+                const csrf_access_token = await this.getToken();
+                console.log(csrf_access_token);
+                const response = await fetch(`http://localhost:8000/user/courses/${course_id}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": csrf_access_token,
+                    },
+                    credentials: "include",
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                }
+                else {
+                    alert(data.error);
+                    this.$router.replace('/SignIn');
+                }
+            }
+            catch (err) {
+                console.error(err);
+            }
+        },
+
+        // Use this function to find an object by id and content type from given weeks of a course
+        findObjectByIdAndType(id, contentType) {
+            for (const week of this.course.details.weeks) {
+                if(week.id === 0) {
+                    const found = week['course_intro'].find(item => item.id === id && item.content_type === contentType);
+                    if (found) {
+                        return found;
+                    }
+                }
+                for (const category of ['lectures', 'mcq', 'programming']) {
+                    const found = week[category].find(item => item.id === id && item.content_type === contentType);
+                    if (found) {
+                        return found;
+                    }
+                }
+            }
+            return null;
         }
     },
-    mounted() {
+    async mounted() {
+        // To set content on Load
+        const query = this.$route.query;
+        console.log(query);
+
         if (localStorage.getItem("theme") === "dark") {
             document.body.classList.add("dark-mode");
         }
@@ -155,47 +220,30 @@ export default {
             });
         });
 
-        // To set content on Load
-        const { id: contentId, name: contentName } = this.$route.query;
-        let ans = null;
-
-        if (contentId && contentName) {
-            this.weeks.forEach(week => {
-                week.content.forEach(item => {
-                    if (item.name === contentName && item.id == contentId) {
-                        ans = item;
-                    }
-                });
-            });
-        }
-
-        
-        if (!ans) {
-            ans = this.weeks[0].content[0];
-        }
-
-        this.change_content(ans);
 
     },
     watch: {
-        content(newContent) {
-            
-            const newParams = { item_id: newContent.item_id, id: newContent.id, name: newContent.name }
-            const url = new URL(window.location.href);
-
-            // Update query params
-            Object.keys(newParams).forEach((key) => {
-                if (newParams[key] !== undefined && newParams[key] !== null) {
-                    url.searchParams.set(key, newParams[key]);
-                } else {
-                    url.searchParams.delete(key); // Remove if value is null/undefined
-                }
-            });
-
-            // Update the URL without reloading or triggering Vue Router
-            window.history.replaceState({}, '', url);
-
-        }
     }
 }
 </script>
+
+<style scoped>
+.spinner {
+    width: 20%;
+    height: 20%;
+    border: 5px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+</style>

@@ -49,7 +49,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 
 export default {
   data() {
@@ -80,31 +79,6 @@ export default {
     },
     removeCourse(course) {
       this.selectedCourses = this.selectedCourses.filter(c => c.id !== course.id);
-    },
-    async register() {
-      this.isSubmitting = true;
-      this.errorMessage = "";
-
-      try {
-        const payload = {
-          email: this.email,
-          name: this.name,
-          role: "student",
-          register_courses: this.selectedCourses.map(c => [c.id, c.name])
-        };
-
-        const response = await axios.post('http://127.0.0.1:5000/user/register', payload);
-        
-        if (response.status === 201) {
-          this.$router.push("/SignIn");
-        }
-      } catch (error) {
-        console.error('Registration error:', error);
-        this.errorMessage = error.response?.data?.error || 
-          "Registration failed. Please check your details and try again.";
-      } finally {
-        this.isSubmitting = false;
-      }
     }
   }
 };
