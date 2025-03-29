@@ -1,20 +1,23 @@
-import axios from "axios";
-
-const API_BASE_URL = "http://127.0.0.1:5000"; // ✅ Ensure correct backend URL
+import api from "./api";
 
 export const signIn = async (email: string) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/auth/signin`, { email }, { withCredentials: true });
+    const response = await api.post("/auth/signin", { email });
 
-    console.log("Sign-in API Response:", response.data); // ✅ Debugging
-    
-    // ✅ Ensure response contains role
-    if (!response.data.role) {
-      console.error("Error: Role is missing from API response.");
-      throw new Error("Invalid response. Missing role.");
+    console.log("Sign-in API Response:", response.data);
+
+    if (!response.data.id || !response.data.role) {
+      console.error("Invalid response structure:", response.data);
+      throw new Error("Invalid response from server.");
     }
 
-    return response.data; // ✅ Return role
+    localStorage.setItem("user_id", response.data.id);
+    localStorage.setItem("user_role", response.data.role);
+    localStorage.setItem("user_email", response.data.email);
+    localStorage.setItem("access_token", response.data.access_token);
+    localStorage.setItem("refresh_token", response.data.refresh_token);
+
+    return response.data;
   } catch (error) {
     console.error("Sign-in failed:", error);
     throw error;

@@ -2,6 +2,10 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
   {
+    path: "/",
+    redirect: "/SignIn", 
+  },
+  {
     path: '/SignIn',
     name: 'sign in',
     component: () => import(/* webpackChunkName: "sign in" */ '../views/SignInView.vue')

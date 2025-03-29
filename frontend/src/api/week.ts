@@ -1,4 +1,9 @@
-import api from './api';
+import api from "./api";
+
+export const getUserCourses = async (userId: number) => {
+  const response = await api.get(`/week/dashboard/${userId}`);
+  return response.data;
+};
 
 export const createWeek = async (name: string, course_id: number) => {
   const response = await api.post('/week/create', { name, course_id });

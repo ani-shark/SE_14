@@ -20,7 +20,7 @@
         <div class="container flash-cards-container">
             <div v-for="course in courses" :key="course.id" class="card">
                 <div class="course-info">
-                    <h4>{{ course.name }}</h4>
+                    <h4>{{ course.intro }}</h4> 
                     <h6>NEW COURSE</h6>
                     <ul>
                         <li v-for="(score, index) in course.scores" :key="index">
@@ -42,17 +42,16 @@
 
 <script>
 import SeekNavbar from "@/components/SeekNavbar.vue";
+import { getUserCourses } from "@/api/user";
+import axios from "@/api/api";
+
+
 export default {
     name: "MyCourses",
-    components:{"seek-nav":SeekNavbar},
+    components: { "seek-nav": SeekNavbar },
     data() {
         return {
-            courses: [
-                { id: 1, name: "Course 1", scores: [100, 100, 100] },
-                { id: 2, name: "Course 2", scores: [100, 100, 100] },
-                { id: 3, name: "Course 3", scores: [100, 100, 100] },
-                { id: 4, name: "Course 4", scores: [100, 100, 100] },
-            ],
+            courses: [], 
             currentDate: new Date().toLocaleDateString("en-US", {
                 weekday: "long",
                 year: "numeric",
@@ -63,9 +62,33 @@ export default {
         };
     },
     mounted() {
+        this.fetchUserCourses();
         this.applyTheme();
     },
     methods: {
+        async fetchUserCourses() {
+            try {
+                const userId = localStorage.getItem("user_id"); 
+                if (!userId) {
+                    console.error("User ID is missing. Redirecting to Sign In.");
+                    this.$router.push("/SignIn");
+                    return;
+                }
+
+                console.log("Fetching courses for User ID:", userId);
+                const fetchedCourses = await getUserCourses(userId); 
+
+                
+                this.courses = fetchedCourses.map(course => ({
+                    id: course.id,
+                    intro: course.intro, 
+                    scores: [100, 100, 100], 
+                }));
+
+            } catch (error) {
+                console.error("Error fetching user courses:", error);
+            }
+        },
         toggleTheme() {
             const body = document.body;
             body.classList.toggle("dark-mode");
@@ -79,8 +102,20 @@ export default {
             }
         },
         signOut() {
-            this.$router.push("/SignIn");
-        },
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("user_id");
+    localStorage.removeItem("user_role");
+    localStorage.removeItem("user_email");
+
+    delete axios.defaults.headers.common["Authorization"];
+
+    console.log("User signed out. Redirecting to Sign In.");
+    
+    this.$router.push("/SignIn").then(() => {
+        window.location.reload(); 
+    });
+},
     },
 };
 </script>

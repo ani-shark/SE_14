@@ -2,7 +2,7 @@
 from flask import Blueprint, jsonify, request
 from flask.views import MethodView
 from flask_jwt_extended import get_jwt_identity, jwt_required
-from ai_agent.models import Course, RoleEnum, User, Week
+from ai_agent.models import Course, RoleEnum, User, Week, UserCourse
 from ai_agent import db
 from ai_agent.utils import admin_required
 from ai_agent.validation import validate_week
@@ -109,3 +109,22 @@ def get_weeks():
         return jsonify(error="No weeks found for this course"), 404
 
     return jsonify([week.to_dict() for week in weeks]), 200
+
+
+
+@week_bp.route('/user/courses', methods=['GET'])
+@jwt_required()
+def get_user_courses():
+    user_id = get_jwt_identity()  
+
+    if not user_id:
+        return jsonify(error="User ID is required"), 400
+
+    registered_courses = UserCourse.query.filter_by(user_id=user_id).all()
+
+    if not registered_courses:
+        return jsonify(error="No courses found for this user"), 404
+
+    courses = Course.query.filter(Course.id.in_([course.course_id for course in registered_courses])).all()
+
+    return jsonify([{"id": course.id, "name": course.name, "intro": course.intro} for course in courses]), 200
