@@ -1,5 +1,5 @@
 # Base URL for the API
-$baseUrl = "http://localhost:5000"
+$baseUrl = "http://localhost:3000"
 
 # Function to make a POST request to the API
 function Test-APIQuery {
