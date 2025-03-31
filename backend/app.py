@@ -4,6 +4,8 @@ from flask_cors import CORS
 
 app = create_app()
 CORS(app, origins=["http://localhost:8080"], supports_credentials=True)
+CORS(app, resources={r"/rag/*": {"origins": "*"}})
+
 
 
 @app.teardown_appcontext
@@ -12,5 +14,5 @@ def shutdown_session(exception=None):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='127.0.0.1', port=5000, debug=True)
 

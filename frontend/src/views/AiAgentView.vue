@@ -26,6 +26,14 @@
                 </div>
             </div>
             <div class="chat-input">
+                <select v-model="selectedSubject" class="subject-dropdown">
+                    <option value="" disabled>Select Subject</option>
+                    <option value="MLF">MLF</option>
+                    <option value="English2">English2</option>
+                    <option value="PDSA">PDSA</option>
+                    <option value="BDM">BDM</option>
+                </select>
+
                 <textarea v-model="userInput" placeholder="Type a message..."></textarea>
                 <button @click="sendMessage"><i class="fa fa-paper-plane"></i></button>
             </div>
@@ -45,7 +53,8 @@ export default {
             chatHistory: JSON.parse(localStorage.getItem("chatHistory")) || [],
             userInput: "",
             messages: [],
-            selectedChat: 0
+            selectedChat: 0,
+            selectedSubject: "",
         };
     },
     methods: {
@@ -90,17 +99,39 @@ export default {
         // Random Response for a Query
         async fetchAIResponse() {
             try {
-                const response = await fetch("https://baconipsum.com/api/?type=meat-and-filler&sentences=10");
+                const response = await fetch("http://127.0.0.1:5000/rag/query", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        query: this.messages.map(msg => msg.text).join("\n"),
+                        subject: this.selectedSubject,
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.statusText}`);
+                }
+
                 const data = await response.json();
-                return data[0] || "Could not generate a response.";
+                return data.response || "Could not generate a response.";
             } catch (error) {
+                console.error("Error fetching AI response:", error);
                 return "I'm having trouble generating a response right now. Please try again.";
             }
         },
 
         // Send Query
         async sendMessage() {
-            if (this.userInput.trim() === "") return;
+            if (this.userInput.trim() === ""){
+                alert("Please enter a message")
+                return;
+            }
+            if (!this.selectedSubject){
+                alert("Please select a subject")
+                return;
+            }
             this.messages.push({ text: this.userInput, sender: "user" });
             if (this.chatHistory[this.selectedChat].title === "New Chat") {
                 this.chatHistory[this.selectedChat].title = this.userInput.substring(0, 20) || "Untitled Chat";
