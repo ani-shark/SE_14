@@ -68,7 +68,8 @@ export default {
             const sidebar = document.getElementById("accordion");
             const toggleButton = document.getElementById("accordion-toggle");
             const closeButton = document.getElementById("close-accordion");
-            if (window.innerWidth <= 868) {
+            if(sidebar!==null){
+                if (window.innerWidth <= 868) {
                 sidebar.style.left = "0";
                 sidebar.style.width = "250px";
                 sidebar.style.height = "100%";
@@ -95,6 +96,8 @@ export default {
                 sidebar.style.display = "none";
                 toggleButton.style.display = "block";
             });
+            }
+            
         },
         // Random Response for a Query
         async fetchAIResponse() {
