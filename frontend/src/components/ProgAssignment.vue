@@ -7,7 +7,6 @@
     </div>
     <div v-else-if="details" class="programming-assignment">
         <h4>{{ details.title }}</h4>
-        <p>{{ details.description }}</p>
         
         <div class="programming-question">
             <p>{{ details.description }}</p>
@@ -229,10 +228,23 @@ export default {
     background-color: #f5f5f5;
     border-radius: 8px;
 }
+
+.dark-mode .programming-assignment {
+    background-color: #333;
+    color: #ffffff;
+}
+
+.dark-mode .programming-question{
+    color: #ffffff;
+}
 .format-details {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+}
+.dark-mode .format-details {
+    background-color: #444;
+    color: #ffffff;
 }
 .code-format {
     width: 48%;
@@ -241,10 +253,14 @@ export default {
     padding: 15px;
     border-radius: 5px;
 }
+.dark-mode .code-format {
+    background-color: #555;
+    color: #ffffff;
+}
 .programming-assignment-btns {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+    margin-top: 1.2rem;
 }
 .submit-btn, .get-help-btn {
     padding: 10px 20px;
@@ -253,7 +269,7 @@ export default {
     cursor: pointer;
 }
 .submit-btn {
-    background-color: #4CAF50;
+    background-color: #6d241f;
     color: white;
 }
 .submit-btn:disabled {
@@ -261,7 +277,7 @@ export default {
     cursor: not-allowed;
 }
 .get-help-btn {
-    background-color: #2196F3;
+    background-color: #28a745;
     color: white;
 }
 .test-results {
@@ -278,10 +294,23 @@ export default {
 .custom-file-upload {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #f0f0f0;
+    background-color: #6d241f;
     border-radius: 5px;
     cursor: pointer;
 }
+.dark-mode .custom-file-upload {
+    background-color: black;
+    color: white;
+}
+.custom-file-upload:hover{
+    background: white;
+    color: #6d241f;
+}
+.dark-mode .custom-file-upload:hover {
+    background: white;
+    color: black;
+}
+
 .custom-file-upload input[type="file"] {
     display: none;
 }

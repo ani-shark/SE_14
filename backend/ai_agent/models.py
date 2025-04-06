@@ -92,6 +92,7 @@ class Course(db.Model):
             "weeks": [week_0] + [week.to_dict() for week in self.weeks]
             }
         
+        ans['weeks'] = sorted(ans['weeks'], key=lambda x: int(x['name'].split(' ')[-1]) if x['name'].split(' ')[-1].isdigit() else 0)
         return ans
 class Week(db.Model):
     __tablename__ = 'week'

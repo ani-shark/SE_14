@@ -6,8 +6,8 @@
         <div class="accordion" id="accordion">
             <button id="close-accordion" class="accordion-close">✖</button>
             <div class="chat-header">
-                <div class="text-truncate" >Chat History</div>
-                <button @click="buttonNew()">+ New Chat</button>
+                <div class="text-truncate">Chat History</div>
+                <button @click="buttonNew()" class="new-chat-btn">+ New Chat</button>
             </div>
             
             <div class="chat-list">
@@ -244,3 +244,64 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+.chat-header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #ccc;
+}
+.new-chat-btn {
+    background-color: #6d241f;
+    color: white;
+    border: 2px solid #6d241f;
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.new-chat-btn:hover {
+    background-color: white;
+    color: #6d241f;
+    border: 2px solid #6d241f;
+}
+
+.dark-mode .new-chat-btn{
+    background-color: black;
+    color: white;
+    border: 2px solid black;
+}
+
+.dark-mode .new-chat-btn:hover{
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+}
+
+.subject-dropdown {
+    appearance: none; 
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0.8rem 1rem 0.8rem 0.8rem;
+  font-size: 1rem;
+  color: #333;
+  outline: none;
+  width: 15%;
+  cursor: pointer;
+  margin-right: 6px;
+}
+
+.dark-mode .subject-dropdown {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+</style>

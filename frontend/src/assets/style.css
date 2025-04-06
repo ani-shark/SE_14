@@ -181,7 +181,14 @@ body {
   display: block;
 }
 
-
+.main-content-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 1rem;
+}
 .accordion-content .content-item:last-child {
   border-bottom: none;
 }
@@ -1157,7 +1164,7 @@ body {
 
 /* CSS for Video Seek */
 .video-pane {
-  width: 65%;
+  width: 85%;
   aspect-ratio: 16/9;
   background: #000;
 }
@@ -1170,8 +1177,9 @@ body {
   background-color: #28a745;
   color: white;
   border: 1px solid #28a745;
-  padding: 8px 16px;
-  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  margin-top: 0.3rem;
   transition: all 0.3s ease;
 }
 .get-help-btn-video:hover {

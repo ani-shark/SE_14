@@ -1,5 +1,5 @@
 <template>
-    <div v-if="user.id !== null" class="my-courses">
+    <div v-if="user.id !== null" class="my-courses" style="position: relative;min-height:100vh;">
         <seek-nav type="student dashboard" title="BS Degree in Data Science and Applications"></seek-nav>
 
         <div class="container meta-info">
@@ -34,8 +34,7 @@
                 </router-link>
             </div>
         </div>
-
-        <footer class="footer">
+        <footer class="footer" style="position:absolute; bottom: 0;width: 100%;">
             <b>SE Project | JAN 2025 Term</b>
         </footer>
     </div>
@@ -44,17 +43,12 @@
 <script>
 import SeekNavbar from "@/components/SeekNavbar.vue";
 import { mapState } from "vuex";
+import { mapActions } from "vuex";
 export default {
     name: "MyCourses",
     components: { "seek-nav": SeekNavbar },
     data() {
         return {
-            courses: [
-                { id: 1, name: "Course 1", scores: [100, 100, 100] },
-                { id: 2, name: "Course 2", scores: [100, 100, 100] },
-                { id: 3, name: "Course 3", scores: [100, 100, 100] },
-                { id: 4, name: "Course 4", scores: [100, 100, 100] },
-            ],
             currentDate: new Date().toLocaleDateString("en-US", {
                 weekday: "long",
                 year: "numeric",
@@ -68,21 +62,9 @@ export default {
         ...mapState(["user"]),
     },
     mounted() {
-        this.applyTheme();
-    },
-    methods: {
-        toggleTheme() {
-            const body = document.body;
-            body.classList.toggle("dark-mode");
-            const newTheme = body.classList.contains("dark-mode") ? "dark" : "light";
-            localStorage.setItem("theme", newTheme);
-            this.themeIcon = newTheme === "dark" ? "☀️" : "🌙";
-        },
-        applyTheme() {
-            if (localStorage.getItem("theme") === "dark") {
-                document.body.classList.add("dark-mode");
-            }
+        if (this.user.id === null) {
+         this.$router.push({ path: "/SignIn" });
         }
-    },
-};
+    }
+    }
 </script>

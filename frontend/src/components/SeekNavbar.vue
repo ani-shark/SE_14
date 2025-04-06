@@ -24,7 +24,7 @@
             </button>
 
             <button title="Change Theme" @click="toggleTheme" class="theme-btn">
-                {{ currentTheme === 'dark' ? '☀️' : '🌙' }}
+                {{ themeIcon }}
             </button>
         </div>
     </nav>
@@ -56,12 +56,20 @@ export default {
             const newTheme = body.classList.contains("dark-mode") ? "dark" : "light";
             localStorage.setItem("theme", newTheme);
             this.themeIcon = newTheme === "dark" ? "☀️" : "🌙";
+        },
+        applyTheme() {
+            if (localStorage.getItem("theme") === "dark") {
+                document.body.classList.add("dark-mode");
+                this.themeIcon = "☀️"; 
+            }
+            else {
+                document.body.classList.remove("dark-mode");
+                this.themeIcon = "🌙"; 
+            }
         }
     },
     mounted() {
-        if (localStorage.getItem("theme") === "dark") {
-            document.body.classList.add("dark-mode");
-        }
+        this.applyTheme();
     },
     beforeUnmount() {
         if (document.body.classList.contains('dark-mode')) {

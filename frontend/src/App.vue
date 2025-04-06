@@ -12,10 +12,7 @@ export default {
   },
   computed: {
     ...mapState(['user'])
-  },
-  async created(){
-    await this.loadUser();   
-},
+  }
 }
 </script>
 

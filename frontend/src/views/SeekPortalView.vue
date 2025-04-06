@@ -109,7 +109,7 @@ import ProgAssignment from "@/components/ProgAssignment.vue";
 import LectureVideo from "@/components/LectureVideo.vue";
 import McqAssignment from "@/components/McqAssignment.vue";
 import { mapActions } from "vuex";
-
+import { mapState } from "vuex";
 export default {
     components: { 
         "seek-nav": SeekNavbar, 
@@ -144,16 +144,35 @@ export default {
             this.content = item;
             this.content_type = item.content_type;
             
-            // Update the URL to reflect the current state
-            this.$router.push({
-                path: '/Seek',
-                query: {
+            // // Update the URL to reflect the current state
+            // this.$router.push({
+            //     path: '/Seek',
+            //     query: {
+            //         course_id: this.course.id,
+            //         content_type: item.content_type,
+            //         id: item.id,
+            //         name: item.name
+            //     }
+            // });
+            const newParams = {
                     course_id: this.course.id,
                     content_type: item.content_type,
                     id: item.id,
                     name: item.name
                 }
+            const url = new URL(window.location.href);
+
+            // Update query params
+            Object.keys(newParams).forEach((key) => {
+                if (newParams[key] !== undefined && newParams[key] !== null) {
+                    url.searchParams.set(key, newParams[key]);
+                } else {
+                    url.searchParams.delete(key); // Remove if value is null/undefined
+                }
             });
+
+            // Update the URL without reloading or triggering Vue Router
+            window.history.replaceState({}, '', url);
         },
         
         toggleSidebar() {
@@ -347,8 +366,13 @@ export default {
             }
         }
     },
-    
+    computed: {
+        ...mapState(["user"]),
+    },
     async mounted() {
+        if (this.user.id === null) {
+         this.$router.push({ path: "/SignIn" });
+        }
         // To set content on Load
         const query = this.$route.query;
         console.log("Route query:", query);
@@ -386,7 +410,7 @@ export default {
             }
         } else {
             // Redirect to course selection if no course_id
-            this.$router.replace('/Courses');
+            this.$router.replace('/Dashboard');
         }
     },
     
@@ -412,135 +436,12 @@ export default {
 </script>
 
 <style scoped>
-.course-content {
-    display: flex;
-    height: calc(100vh - 60px);
-    overflow: hidden;
-}
-
-.accordion {
-    width: 25%;
-    background: #f8f9fa;
-    border-right: 1px solid #dee2e6;
-    overflow-y: auto;
-    height: 100%;
-    position: relative;
-}
-
-.accordion-toggle {
-    display: none;
-    position: fixed;
-    top: 70px;
-    left: 10px;
-    z-index: 999;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    width: 40px;
-    height: 40px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.accordion-close {
-    display: none;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    color: #555;
-}
-
-.accordion-item {
-    border-bottom: 1px solid #dee2e6;
-}
-
-.accordion-header {
-    padding: 12px 15px;
-    font-weight: 600;
-    background: #f1f3f5;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.accordion-header.active {
-    background: #e2e6ea;
-}
-
-.accordion-content {
-    display: none;
-    padding: 0.5rem;
-}
-
-.content-category {
-    margin-bottom: 1rem;
-}
-
-.category-title {
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: #666;
-    padding-left: 0.5rem;
-}
-
-.content-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem;
-    border-radius: 4px;
-    transition: background-color 0.2s;
-}
-
-.content-item:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
-.content-item i {
-    margin-right: 0.5rem;
-    width: 1rem;
-    text-align: center;
-}
-
-.main-content-area {
-    flex: 1;
-    padding: 1rem;
-    overflow-y: auto;
-    background: white;
-}
-
-.content-display {
-    height: 100%;
-    width: 100%;
-}
-
-.loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.intro-content {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 1rem;
-}
 
 .text-truncate {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 80%;
+    word-wrap: break-word;     /* Breaks long words if necessary */
+  overflow-wrap: break-word; /* Modern equivalent of word-wrap */
+  white-space: normal;  
 }
-
 .spinner-container {
     display: flex;
     justify-content: center;
@@ -557,29 +458,6 @@ export default {
     animation: spin 1s linear infinite;
 }
 
-.ai-agent-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    font-size: 1.5rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.2s;
-}
-
-.ai-agent-button:hover {
-    transform: scale(1.1);
-}
-
 @keyframes spin {
     from {
         transform: rotate(0deg);
@@ -589,41 +467,4 @@ export default {
     }
 }
 
-/* Dark mode styles */
-:global(.dark-mode) .accordion {
-    background: #1f2937;
-    border-right-color: #374151;
-}
-
-:global(.dark-mode) .accordion-header {
-    background: #111827;
-    color: #e5e7eb;
-}
-
-:global(.dark-mode) .accordion-header.active {
-    background: #0e1623;
-}
-
-:global(.dark-mode) .content-item:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-:global(.dark-mode) .category-title {
-    color: #9ca3af;
-}
-
-:global(.dark-mode) .main-content-area {
-    background: #111827;
-    color: #e5e7eb;
-}
-
-@media screen and (max-width: 868px) {
-    .course-content {
-        flex-direction: column;
-    }
-    
-    .main-content-area {
-        height: calc(100vh - 60px);
-    }
-}
 </style>

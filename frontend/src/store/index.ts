@@ -55,7 +55,7 @@ export default createStore({
         }
         commit("clear_user");
         if (router.currentRoute.value.path === "/Admin") {
-          router.replace("/AdminSignIn");
+          router.replace("/Admin/SignIn");
         } else router.replace("/SignIn");
       } catch (error) {
         console.error("Token error: ", error);
@@ -79,13 +79,13 @@ export default createStore({
             return true;
           } else {
             if (router.currentRoute.value.path === "/Admin") {
-              router.replace("/AdminSignIn");} else router.replace("/SignIn");
+              router.replace("/Admin/SignIn");} else router.replace("/SignIn");
           }
         }
       } catch (error) {
         console.error("Loading User failed: ", error);
         if (router.currentRoute.value.path === "/Admin") {
-          router.replace("/AdminSignIn");} else router.replace("/SignIn");
+          router.replace("/Admin/SignIn");} else router.replace("/SignIn");
       }
     },
     async signIn({ commit, dispatch }, payload) {
