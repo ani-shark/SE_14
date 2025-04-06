@@ -1,10 +1,10 @@
 <template>
     <div v-if="user.id !== null" class="my-courses" style="position: relative;min-height:100vh;">
-        <seek-nav type="student dashboard" title="BS Degree in Data Science and Applications"></seek-nav>
+        <seek-nav type="student dashboard" title="Student Dashboard"></seek-nav>
 
         <div class="container meta-info">
             <div>
-                <h3>My Current Courses</h3>
+                <h3>Current Courses for {{ user.name }}</h3>
             </div>
             <div>
                 <h4>{{ currentDate }}</h4>

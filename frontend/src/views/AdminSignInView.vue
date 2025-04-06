@@ -11,20 +11,57 @@
         <div class="sign-in-form-box">
             <div class="sign-in">
                 <h2>Admin Sign In</h2>
-                <p>
-                    Sign-in using the Google account you have been authorized.
-                </p>
-                <button @click="this.$router.push('/Admin')">Sign in with Google</button>
+                <div style="color: red;">{{ errorMessage }}</div>
+                <input v-model="email" type="email" placeholder="Enter your email to sign in" required />
+                <button @click="handleSignIn">Sign In</button>
             </div>
         </div>
     </div>
 </template>
 
-<script>
 
+<script>
+import { mapActions } from 'vuex';
+import { mapState } from 'vuex';
 export default {
-    methods: {
-        
-    },
+   data() {
+      return {
+        email: "",
+        errorMessage: "",
+      };
+   },
+   methods:{
+    ...mapActions(['signIn']),
+    async handleSignIn(){
+        if(this.email === ""){
+            this.errorMessage = "Please enter your email.";
+            setTimeout(() => {
+                this.errorMessage = "";
+            }, 2000);
+            return;
+        }
+        const response = await this.signIn({ email: this.email });
+        if (response !== true) {
+            this.errorMessage = response || "Sign-in failed. Please try again.";
+            setTimeout(() => {
+                this.errorMessage = "";
+            }, 2000);
+        } else {
+            if(this.user.role !== "ADMIN"){
+                this.errorMessage = "Unauthorized access. Please contact the admin.";
+                setTimeout(() => {
+                    this.errorMessage = "";
+                }, 2000);
+            }
+            else{
+                this.$router.push("/Admin");
+            }
+            
+        }
+    }
+   },
+   computed:{
+    ...mapState(['user']),
+   }
 };
 </script>

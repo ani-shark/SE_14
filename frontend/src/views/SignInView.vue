@@ -45,6 +45,9 @@ export default {
         const response = await this.signIn({ email: this.email });
         if (response !== true) {
             this.errorMessage = response || "Sign-in failed. Please try again.";
+            setTimeout(() => {
+                this.errorMessage = "";
+            }, 2000);
         } else {
             this.$router.push("/Dashboard");
         }
