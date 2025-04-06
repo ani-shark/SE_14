@@ -1,39 +1,17 @@
-# SE_14
-Software Engineering group project 
+# SOFTWARE ENGINEERING GROUP PROJECT: AI AGENT FOR ACADEMIC GUIDANCE
 
-## Backend Set up
-Ensure you have the following installed on your system:
-- Python (version 3.x recommended)
-- pip (Python package manager)
+This project is an operational demo of an AI agent integrated student portal, which is a mock-up of the IITM BS degree program student portal. 
+The project's AI agent runs on the **DeepSeek 14B Token Reasoning Model**. For downloading and running this application, please refer to the `Instructions.md` file.
 
-### Setting up the backend
-```
-# Navigate to the backend directory
-cd backend
+---
 
-# Initialize a Python virtual environment (recommended for dependency isolation)
-python -m venv venv
+## Team Members (SE Team 14)
+- **Anirudh Penumatcha**
+- **Shruthi Kawale**
+- **Bhavesh Srihan**
+- **Ankit Umesh Shetty**
+- **Ahmad Khan Sarfaraz**
+- **Sharath Kumar Bathula**
+- **Himaruth Shriram**
 
-# Activate the virtual environment
-# On Windows:
-venv\Scripts\activate
-# On macOS/Linux:
-source venv/bin/activate
-
-# Install dependencies from requirements.txt using pip
-pip install -r requirements.txt
-```
-
-### Running the application
-```
-# Set up the Flask application environment
-# Windows
-set FLASK_APP=app.py
-# macOS/Linux
-export FLASK_APP=app.py
-
-# Start the Flask application
-flask run
-```
-
-
+---

@@ -10,9 +10,6 @@
                 <h4>{{ currentDate }}</h4>
                 <h4>JANUARY 2025 TERM</h4>
             </div>
-            <div>
-                {{ user }}
-            </div>
         </div>
 
         <div class="container flash-cards-container">
